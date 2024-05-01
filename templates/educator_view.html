@@ -23,16 +23,10 @@
             <li><a href="#">Submit Blog</a></li>
             <li><a href="#">Become Blog Moderator</a></li>
             <li><a href="#">Lets Colloborate</a></li>
-            <li><a href="/supportUs">Support Us</a></li>
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
             
         </ul>
     </nav>
-    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
-        <h1 class="text-xl md:text-3xl font-semibold">Educator Dashboard</h1>
-        <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-            Logout
-        </button>
-    </header>
     
     <div class="flex flex-wrap justify-around p-5">
         <div class="card max-w-sm w-full bg-white rounded-lg border border-gray-200 shadow-md m-4 hover:scale-105 transition-transform duration-300" style="cursor: pointer;" onclick="window.location.href='/assessment'">
