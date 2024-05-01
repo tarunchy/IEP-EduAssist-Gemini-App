@@ -133,7 +133,7 @@ def home():
     elif user_role == 'parent':
         return render_template('ieps_view_parent.html')
     elif user_role == 'admin':
-        return render_template('user.html')
+        return render_template('users.html')
     else:
         return render_template('login.html')
 
