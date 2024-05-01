@@ -117,6 +117,12 @@ def get_iep_questions():
         iep_data = json.load(f)
     return jsonify(iep_data)
 
+
+@app.route('/terms', methods=['GET'])
+def terms():
+    # Logic for rendering the login page
+    return render_template('terms.html')
+
 @app.route('/', methods=['GET'])
 def login():
     # Logic for rendering the login page
