@@ -306,13 +306,12 @@ def get_iep_assessment():
             3. Introduce tailored interventions like Social Skills Training (SST) and Peer-Mediated Instruction and Intervention (PMII) based on assessment findings.
 
             These actions will be reviewed and updated regularly to ensure effectiveness and suitability for the student's evolving needs. 
-            
-            Score= 0.5
 
             IEP Participant: {question}
             IEP Participant's Feedback: {parentAnswer}
 
-            Goal recommendation:
+            Your response should be formatted as: Score=$score Goal Recommendation
+            
 
             """
         
