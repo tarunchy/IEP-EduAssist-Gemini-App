@@ -11,7 +11,57 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
     <!-- Add other CSS files as needed -->
+
+    <!-- Add other CSS files as needed -->
+    <style>
+        .user-management-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-container span {
+            margin-left: -30px; /* Adjust as necessary */
+            cursor: pointer;
+        }
+
+        .select-container {
+            display: none; /* Initially hidden */
+        }
+    </style>
+
 </head>
+
 <body>
     <input type="checkbox" id="active" />
     <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
@@ -30,7 +80,7 @@
         <h1 class="text-xl md:text-3xl font-semibold"></h1>
     </header>
 
-    <div class="student-management-container">
+    <div class="user-management-container">
         <h2>Student Management</h2>
         
         <!-- Operation Selection -->
