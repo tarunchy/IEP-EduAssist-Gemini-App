@@ -7,8 +7,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.x/dist/tailwind.min.css" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
 </head>
 <body>
+    <input type="checkbox" id="active" />
+    <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
+    <!---------- NAVIGATION BAR ---------->
+    <nav>
+        <ul>
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/aiExperiments">AI Experiments</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="#">Submit Blog</a></li>
+            <li><a href="#">Become Blog Moderator</a></li>
+            <li><a href="#">Lets Colloborate</a></li>
+            <li><a href="/supportUs">Support Us</a></li>
+            
+        </ul>
+    </nav>
     <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
         <h1 class="text-xl md:text-3xl font-semibold">Educator Dashboard</h1>
         <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
@@ -40,4 +58,7 @@
         </div>
     </div>
 </body>
+<script>
+     new Darkmode().showWidget();
+</script>
 </html>
