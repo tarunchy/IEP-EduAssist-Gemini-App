@@ -390,14 +390,16 @@ h1 {
                     questionsArray.forEach(function(question, index) {
                        
                         
+                        let escapedQuestion = JSON.stringify(question.question).slice(1, -1); // Remove the surrounding quotes
+        
                         questionsHtml += '<div class="question">' +
                             '<input type="radio" name="questions" id="question' + index + '" class="question-checkbox">' +
                             '<label for="question' + index + '">' + (index + 1) + '. ' + question.question +
                             ' <span class="speak-icon" onclick="speakQuestion(' + index + ')">🔊</span>' +
                             '</label>' +
-                            '<textarea id="parentAnswer' + index + '" rows="2" class="border border-gray-300" placeholder="Assessment will appear here" onclick="showPopup(' + question.question + ', this)" ></textarea>' +
-                            '<textarea id="iepAssessment' + index + '" rows="2" class="border border-gray-300" placeholder="IEP Goal will appear here" onclick="showPopup(' + question.question + ', this)" ></textarea>' +
-                            '<textarea id="iepService' + index + '" rows="2" class="border border-gray-300" placeholder="Recommended Service based on IEP Goal will appear here" onclick="showPopup(' + question.question + ', this)" ></textarea>' +
+                            '<textarea id="parentAnswer' + index + '" rows="2" class="border border-gray-300" placeholder="Assessment will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
+                            '<textarea id="iepAssessment' + index + '" rows="2" class="border border-gray-300" placeholder="IEP Goal will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
+                            '<textarea id="iepService' + index + '" rows="2" class="border border-gray-300" placeholder="Recommended Service based on IEP Goal will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
                             '</div>';
                     });
                 
