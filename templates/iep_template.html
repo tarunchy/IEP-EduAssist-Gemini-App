@@ -1,218 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEP Template Editor</title>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.x/dist/tailwind.min.css">
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 </head>
-<body>
+<body class="bg-gray-100">
 
-    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
-        <h1 class="text-xl md:text-3xl font-semibold">Customize IEP Questions</h1>
-    
-        <div class="flex">
-            <button onclick="educatorView()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
-                Dashboard
-            </button>
-    
-            <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                Logout
-            </button>
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-gray-900">Customize IEP Questions</h1>
         </div>
     </header>
 
-    <div id="main" class="mt-5 px-4">
-        
-        <div class="flex flex-wrap justify-center gap-4 mt-4">
-            <div class="mb-4">
-                <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Select Level:</label>
+    <main class="py-10">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <div class="mb-4">
+                    <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Select Level:</label>
+                    <select id="age" class="block w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option value="3">First Time Assessment</option>
+                        <option value="4">Level 1</option>
+                        <option value="5">Level 2</option>
+                        <option value="6">Level 3</option>
+                        <option value="7">Level 4</option>
+                        <option value="8">Import Manually</option>
+                    </select> 
+                </div>
+                
+                <div class="flex justify-center">
+                    <button id="load" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Load Template
+                    </button>
+                </div>
 
-                <select id="age" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                <option value="3">Frist Time Assessment</option>
-                <option value="4">Level 1</option>
-                <option value="5">Level 2</option>
-                <option value="6">Level 3</option>
-                <option value="7">Level 4</option>
-                <option value="8">Import Manually</option>
-            </select> 
-            
+                <div class="mt-4">
+                    <textarea id="editor" rows="10" class="block w-full bg-white border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 hidden"></textarea>
+                </div>
+
+                <div class="flex justify-center mt-4">
+                    <button id="validate" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hidden">
+                        Validate JSON
+                    </button>
+                    <button id="save" class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
         </div>
-        <!-- Hidden Input for Student Type -->
-      <input type="hidden" id="student_type" name="student_type" value="special_need">
-
-    </div>
-
-    <div class="text-center mt-3">
-        <button id="load" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Load Template</button>
-    </div>
-
-    <div class="mt-3">
-        <textarea id="editor" rows="10" class="block w-full bg-white border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" hidden></textarea>
-    </div>
-
-    <div class="text-center mt-3">
-        <button id="validate" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" hidden>Validate JSON</button>
-        <button id="save" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Save Changes</button>
-    </div>
-
-</div>
+    </main>
 
 <script>
-    $(document).ready(function() {
-        $('#load').click(function() {
+$(document).ready(function() {
+    $('#load').click(function() {
         var age = $('#age').val();
-        var student_type = $('#student_type').val();
         $.ajax({
-            url: '/get_iep_template',  // Using a relative URL here
+            url: '/get_iep_template', // Using a relative URL here
             type: 'GET',
-            data: {age: age, student_type: student_type},
+            data: { age: age },
             success: function(data) {
+                $('#editor').removeClass('hidden');
                 var response = JSON.stringify(data, null, 4);
                 $('#editor').val(response);
-                var jsonData = JSON.parse(response);
-                renderQuestion(jsonData);
             },
-            error: function(error) {
+            error: function() {
                 alert('Error loading template');
             }
         });
-    });
-
-    function renderQuestion(jsonData){
-            $("table").remove();
-            var content = "<table id =\"questionTab\" width=\"1000px\">";
-            content += "<thead><tr><th> Questions </th></tr></thead>"
-            content += "<tbody>";
-            content += "<tr><td></tr></td>";
-            content += "<tr><td><button id=\"add\" class=\"add bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\" style=\"margin-right: 16px\">Add</button></td></tr>";
-            var questionsArray = Object.values(jsonData)[0];
-            // console.log(questionsArray);
-            for (var x = 0; x < questionsArray.length; x++) {
-                content += "<tr id=\"tr_"+x+"\">";
-                content += "<td width=\"5px\">";
-                content += "Q"+[x+1]+". ";
-                content += "</td>";
-                content += "<td width=\"500px\">";
-                content += "<textarea id=\"textarea_"+x+"\"rows =\"2\" columns =\"500\" style=\"width: 100%\" disabled>";
-                content += questionsArray[x].question;
-                content += "</textarea>";
-                content += "</td>";
-                content += "<td width=\"10px\">";
-                content += "<button id=\"edit_"+x+"\" class=\"edit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\" style=\"margin-right: 16px\">Edit</button>";
-                content += "</td>";
-                content += "<td width=\"10px\">";
-                content += "<button id=\"save_"+x+"\" class=\"save bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\" style=\"margin-right: 16px\" hidden>Save</button>";
-                content += "</td>";
-                content += "<td width=\"10px\">";
-                content += "<button id=\"delete_"+x+"\" class=\"delete bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\">Delete</button>";
-                content += "</td>";
-                content += "</tr>";
-            }
-            content += "</tbody>";
-            content += "</table>";
-            $("#main").append(content);
-    }
-
-    // $(document).on('change','.form-control', function(){
-    //     var age = $('#age option:selected').val();
-    //     if(age>=4){
-    //         $('#student_level').get(0).removeAttribute("hidden","hidden");
-    //     }
-    // });
-
-    $(document).on('click','.edit', function(){
-        var elementID = $(this).get(0).id;
-        var index = elementID.split("_").pop();
-        // console.log(index);
-        $("#textarea_"+index).get(0).removeAttribute("disabled");
-        $("#save_"+index).get(0).removeAttribute("hidden");
-        
-        $(this).get(0).setAttribute("hidden","hidden");
-    });
-
-    $(document).on('click','.save', function(){
-        var elementID = $(this).get(0).id;
-        var index = elementID.split("_").pop();
-        // console.log(index);
-        $("#textarea_"+index).get(0).setAttribute("disabled","disabled");
-        $("#edit_"+index).get(0).removeAttribute("hidden");
-        $(this).get(0).setAttribute("hidden","hidden");
-
-        var jsonData = JSON.parse($("#editor").val());
-        // console.log(jsonData);
-        var questionsArray = Object.values(jsonData)[0];
-        if(index<=questionsArray.length-1){
-            (Object.values(jsonData)[0])[index].question=$("#textarea_"+index).val();
-        }else{
-            (Object.values(jsonData)[0]).push({"question": $("#textarea_"+index).val(),
-            "answer": "",
-            "benchmark": {
-                "status": "Below goal",
-                "qualificationText": "Goal is met if there's improvement in fine and/or gross motor skills."
-            },
-            "ParentAnswer": "TBD"});
-        }
-       
-        // console.log(jsonData);
-        $('#editor').val(JSON.stringify(jsonData, null, 4));
-
-    });
-
-    $(document).on('click','.delete', function(){
-        var elementID = $(this).get(0).id;
-        // console.log(elementID);
-        var i = elementID.split("_").pop();
-        // console.log($("#tr_"+i));
-       
-        $("#tr_"+i).get(0).remove();
-        var jsonData = JSON.parse($("#editor").val());
-        $.each(Object.values(jsonData)[0], function(index, value){  
-            console.log('index: '+index+' i '+i);
-            if(i == index)  {
-                delete (Object.values(jsonData)[0])[index];
-            }        
-        });
-        // console.log(jsonData);
-        jsonString = JSON.stringify(jsonData, (k, v) => Array.isArray(v) && !(v = v.filter(e => e !== null && e !== void 0)).length ? void 0 : v, 2 )
-        $('#editor').val(jsonString);
-        renderQuestion(JSON.parse(jsonString));
-    });
-
-    $(document).on('click','.add', function(){
-        var elementID = $(this).get(0).id;
-        // console.log(elementID);
-        var jsonData = JSON.parse($("#editor").val());
-        var x = (Object.values(jsonData)[0]).length;
-        var content = "<tr>";
-        content += "<td width=\"5px\">";
-        content += "Q"+[x+1]+". ";
-        content += "</td>";
-        content += "<td width=\"500px\">";
-        content += "<textarea id=\"textarea_"+x+"\"rows =\"2\" columns =\"500\" style=\"width: 100%\">";
-        content += "</textarea>";
-        content += "</td>";
-        content += "<td width=\"10px\">";
-        content += "<button id=\"edit_"+x+"\" class=\"edit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\" style=\"margin-right: 16px\">Edit</button>";
-        content += "</td>";
-        content += "<td width=\"10px\">";
-        content += "<button id=\"save_"+x+"\" class=\"save bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\" style=\"margin-right: 16px\">Save</button>";
-        content += "</td>";
-        content += "<td width=\"10px\">";
-        content += "<button id=\"delete_"+x+"\" class=\"delete bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded\">Delete</button>";
-        content += "</td>";
-        content += "</tr>";
-        tablebody = $("table tbody");
-        tablebody.append(content);
     });
 
     $('#validate').click(function() {
@@ -225,24 +82,20 @@
     });
 
     $('#save').click(function() {
-    var age = $('#age').val();
-    var student_type = $('#student_type').val();
-    var updated_data = JSON.parse($('#editor').val());
-
-    $.ajax({
-        url: '/save_iep_template',
-        type: 'POST',
-        data: JSON.stringify({age: age, student_type: student_type, data: updated_data}),
-        contentType: "application/json",
-        success: function(response) {
-            alert('Successfully saved.');
-        },
-        error: function(error) {
-            alert('Error saving template.');
-        }
+        var updated_data = JSON.parse($('#editor').val());
+        $.ajax({
+            url: '/save_iep_template',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ data: updated_data }),
+            success: function() {
+                alert('Successfully saved.');
+            },
+            error: function() {
+                alert('Error saving template.');
+            }
+        });
     });
-});
-
 });
 </script>
 
