@@ -278,3 +278,68 @@ nav ul li a:hover {
 input[type="checkbox"] {
   display: none;
 }
+
+/* ============ BASE STYLES ============ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ============ NAVIGATION TOGGLE ============ */
+input[type="checkbox"] {
+  display: none; /* Hide the checkbox */
+}
+
+.toggle-btn {
+  position: fixed;
+  z-index: 1001; /* Ensure it is above the nav */
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 30px;
+  color: white; /* Icon color */
+}
+
+/* ============ NAVIGATION MENU ============ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000; /* High z-index to cover other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease;
+  transform: scale(0); /* Initially scaled down */
+}
+
+#active:checked ~ nav {
+  transform: scale(1); /* Scale up to full size when active */
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  margin: 20px 0;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
