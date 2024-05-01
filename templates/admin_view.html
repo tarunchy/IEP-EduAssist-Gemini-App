@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Educator Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
     <style>
         .dashboard-container {
             padding: 20px;
@@ -56,9 +59,23 @@
         <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 </head>
 <body>
-    <header class="header">
-        <h1>Admin  Dashboard</h1>
+    <input type="checkbox" id="active" />
+    <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
+    <!---------- NAVIGATION BAR ---------->
+    <nav>
+        <ul>
+            <li><a href="/home" class="active">Home</a></li>
+            <li><a href="/students" class="active">Manage Students</a></li>
+            <li><a href="/users" class="active">Manage Users</a></li>
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
+            
+        </ul>
+    </nav>
+
+    <header class="flex justify-between items-center py-5 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold"></h1>
     </header>
+
     <div class="dashboard-container">
         <div class="card" onclick="window.location.href='/students'">
             <img src="/static/images/manage_student.png" alt="Start IEP">
@@ -74,5 +91,9 @@
         </div>
         
     </div>
+
+    <script>
+        new Darkmode().showWidget();
+    </script>
 </body>
 </html>

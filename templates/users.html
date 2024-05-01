@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
     <!-- Add other CSS files as needed -->
     <style>
         .user-management-container {
@@ -58,25 +60,22 @@
 </head>
 <body>
 
-    <!-- Responsive Navigation Menu -->
-<nav class="responsive-nav">
-    <div id="menuToggle">
-        <!-- Hidden checkbox, is used as click reciever for :checked -->
-        <input type="checkbox" />
-        
-        <!-- Hamburger Icon -->
-        <span></span>
-        <span></span>
-        <span></span>
-        
-        <!-- Menu Items -->
-        <ul id="menu">
-            <li><a href="/admin_view">Dashboard</a></li>
-            <li><a href="javascript:void(0)" onclick="logoutUser()">Logout</a></li>
-            <!-- Add more menu items here -->
+    <input type="checkbox" id="active" />
+    <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
+    <!---------- NAVIGATION BAR ---------->
+    <nav>
+        <ul>
+            <li><a href="/home" class="active">Home</a></li>
+            <li><a href="/students" class="active">Manage Students</a></li>
+            <li><a href="/users" class="active">Manage Users</a></li>
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
+            
         </ul>
-    </div>
-</nav>
+    </nav>
+
+    <header class="flex justify-between items-center py-5 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold"></h1>
+    </header>
 
     <div class="user-management-container">
         <h2>User Management</h2>
@@ -359,5 +358,8 @@ function closeStudentSearchPopup() {
         </table>
     </div>
 </div>
+<script>
+    new Darkmode().showWidget();
+</script>
 </body>
 </html>

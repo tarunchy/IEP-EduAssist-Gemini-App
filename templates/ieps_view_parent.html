@@ -15,6 +15,10 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
+
     <script>
 
     
@@ -269,8 +273,6 @@ function summarizeIeps() {
         return;
     }
 
-    var llm_provider = $('#hiddenLlmProvider').val();
-
     var focus_area = $('#focus_area').val();
 
     // Hide the IEP details div
@@ -278,7 +280,6 @@ function summarizeIeps() {
 
     var dataToSend = {
         ieps: globalIeps,
-        llm_provider: llm_provider,
         focus_area: focus_area
     };
 
@@ -326,22 +327,20 @@ function getCookie(name) {
 <body>
 
     <input type="hidden" id="hiddenStudentId" name="hiddenStudentId">
-    <input type="hidden" id="hiddenLlmProvider" name="hiddenLlmProvider" value="LLAMA2">
 
+    <input type="checkbox" id="active" />
+    <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
+    <!---------- NAVIGATION BAR ---------->
+    <nav>
+        <ul>
+            <li><a href="/home" class="active">Home</a></li>
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
+            
+        </ul>
+    </nav>
 
-
-    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
-        <h1 class="text-xl md:text-3xl font-semibold">IEP Insights & History</h1>
-    
-        <div class="flex">
-            <button onclick="parentView()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
-                Dashboard
-            </button>
-    
-            <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                Logout
-            </button>
-        </div>
+    <header class="flex justify-between items-center py-5 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold"></h1>
     </header>
     
 
@@ -404,5 +403,9 @@ function getCookie(name) {
     <div id="iepSummary" style="display: none;" class="max-w-4xl mx-auto my-6 p-6 bg-white rounded shadow-lg" style="display: none;">
         
     </div>
+
+    <script>
+        new Darkmode().showWidget();
+    </script>
 </body>
 </html>
