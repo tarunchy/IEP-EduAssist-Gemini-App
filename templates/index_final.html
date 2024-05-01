@@ -206,7 +206,43 @@ h1 {
     }
 </style>
 
+<style>
 
+   .popup-textarea {
+        width: 100%;
+        height: 80vh; /* 80% of the viewport height */
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .fullscreen-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        overflow-y: auto; /* Allows scrolling */
+        padding-top: 50px; /* Space for close button */
+    }
+
+    .popup-content {
+        margin: auto;
+        padding: 20px;
+        width: 80%;
+        background: white;
+    }
+
+    .close-btn {
+        margin: 0 0 10px auto;
+        padding: 5px 20px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+</style>
 
 <script>
     var currentTextarea = null;
@@ -1004,16 +1040,13 @@ function closeStudentSearchPopup() {
     </div>
 </div>
 
-<div id="fullscreen-popup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center px-4 py-8" style="display:none; z-index: 1000;">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-3/4 xl:w-3/4 h-3/4 overflow-auto">
-        <button onclick="hidePopup()" class="text-white bg-red-500 hover:bg-red-700 rounded p-2 absolute top-3 right-3">Close</button>
-        <h3 id="popup-title" class="text-lg font-semibold text-center mb-4"></h3>
-        <textarea id="popup-textarea" class="w-full h-56 border-2 border-gray-300 p-3 rounded-md resize-none"></textarea>
+<div id="fullscreen-popup" class="fullscreen-popup" style="display:none;">
+    <div class="popup-content">
+        <button onclick="hidePopup()" class="close-btn">Close</button>
+        <h3 id="popup-title"></h3> <!-- Header for the question -->
+        <textarea id="popup-textarea" class="popup-textarea"></textarea>
     </div>
 </div>
-
-
-
 
 
 
