@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted,Linux,X64,gemini_iep]
+    runs-on: [self-hosted,Linux,X64,gemini]
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
