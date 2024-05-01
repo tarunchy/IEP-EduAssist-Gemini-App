@@ -429,54 +429,53 @@ def summarize_iep_assessment():
         content = request.get_json()
         globalIeps = content['ieps']
         formatted_parent_answers = build_formatted_parent_answers(globalIeps)
-        llm_provider = content['llm_provider']
 
         focus_area = content['focus_area']
 
         #logging.debug('111111')
 
         # Create the updated prompt string for IEP Assessment with only the score embedded in recommendation
-        prompt_str = f"""[INST]<<SYS>>
+        prompt_str = f"""
             You are an expert educator specialized in summarizing Individualized Education Plan (IEP) responses for students. Your task is to provide a concise summary of the IEP Participant's (Teacher, Speech Therapist, Occupation Therapist, Parent) answers, focusing on the main concerns, needs, and observations mentioned. Your summary should be a single, coherent paragraph that highlights the key themes across multiple responses.
 
             Please ensure that the summary is clear and concise, capturing the essence of the participant's perspectives without adding any recommendations or scores. The summary should provide a quick overview for educators to understand the overall needs and concerns of the student as expressed by the IEP participants.
 
-            <<IEPParticipantAnswers>>
+            IEPParticipantAnswers:
             {formatted_parent_answers}
 
             DO NOT include any other suggestion or note just provide summary as string.
-            <</SYS>>[/INST]"""
+            """
         
         # Check if 'focus_area' is null or has no value
         if not content.get('focus_area'):
             # Use the default prompt for summarization
-            prompt_str = f"""[INST]<<SYS>>
+            prompt_str = f"""
                 You are an expert educator specialized in summarizing Individualized Education Plan (IEP) responses for students. Your task is to provide a concise summary of the IEP Participant's (Teacher, Speech Therapist, Occupation Therapist, Parent) answers, focusing on the main concerns, needs, and observations mentioned. Your summary should be a single, coherent paragraph that highlights the key themes across multiple responses.
 
                 Please ensure that the summary is clear and concise, capturing the essence of the participant's perspectives without adding any recommendations or scores. The summary or key points should provide a quick overview for educators to understand the overall needs and concerns of the student as expressed by the IEP participants.
 
-                <<IEPParticipantAnswers>>
+                IEPParticipantAnswers:
                 {formatted_parent_answers}
 
                 DO NOT include any other suggestion or note, just provide summary as string.
-                <</SYS>>[/INST]"""
+                """
         else:
             # Use a different prompt based on the provided 'focus_area'
-            prompt_str = f"""[INST]<<SYS>>
+            prompt_str = f"""
                 You are an expert educator specialized in responding to queries and summarizing Individualized Education Plan (IEP) responses for students, with a focus on the '{focus_area}' area. You can either provide a concise summary of the IEP Participant's (Teacher, Speech Therapist, Occupation Therapist, Parent) answers or respond to specific questions about the student's abilities and needs in the '{focus_area}' area.
 
                 For summaries, focus on the main concerns, needs, and observations related to the '{focus_area}' area, creating a single, coherent paragraph that highlights key themes across multiple responses. For questions, provide clear and direct answers based on the provided IEP Participant answers.
 
                 If there is insufficient information in the provided responses to accurately summarize or answer a question about the '{focus_area}' area, please indicate this clearly to the user.
 
-                <<IEPParticipantAnswers>>
+                IEPParticipantAnswers:
                 {formatted_parent_answers}
 
                 [UserQuery]
                 {focus_area}
 
                 DO NOT add any recommendations, scores, or information not present in the responses. Provide either a summary or answer to the query as appropriate.
-                <</SYS>>[/INST]"""
+                """
 
         # Now you have 'prompt_str' containing the appropriate prompt based on the condition.
 
