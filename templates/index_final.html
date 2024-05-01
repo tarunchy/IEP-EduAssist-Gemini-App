@@ -1041,12 +1041,13 @@ function closeStudentSearchPopup() {
 </div>
 
 <div id="fullscreen-popup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4" style="display:none; z-index: 1000;">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto my-8">
         <button onclick="hidePopup()" class="text-white bg-red-500 hover:bg-red-700 rounded p-2 float-right">Close</button>
-        <h3 id="popup-title" class="mt-4 mb-2 text-lg font-semibold"></h3>
+        <h3 id="popup-title" class="mt-4 mb-2 text-lg font-semibold text-center"></h3>
         <textarea id="popup-textarea" class="w-full h-36 border-2 border-gray-300 p-2 rounded-md"></textarea>
     </div>
 </div>
+
 
 
 
