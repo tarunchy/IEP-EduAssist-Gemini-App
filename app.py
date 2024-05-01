@@ -326,6 +326,75 @@ def get_iep_assessment():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route('/get_iep_services', methods=['POST'])
+@validate_educator_token
+def get_iep_services():
+    try:
+        #logging.basicConfig(level=logging.DEBUG)
+        #logging.debug('111111')
+        content = request.get_json()
+        if not all(k in content for k in ("question", "parentAnswer")):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        question = content['question']
+    
+        parentAnswer = content['parentAnswer']
+        age = content['age']
+        student_type = content['student_type']
+
+
+        #logging.debug('111111')
+
+        # Create the updated prompt string for IEP Assessment with only the score embedded in recommendation
+        prompt_str = f"""
+            You are an expert educator specialized in creating Individualized Education Plans or IEP for {age}-year-old students of type {student_type}. Provide a recommendation for an IEP Assessment based on the question and the IEP Participant's (Teacher, Speech Therapist,Occupation Therapist, Parent ) answer. Your recommendation should be a single, unbroken paragraph that strictly concludes with a score derived from the ParentAnswer. The score should be a single decimal number. No additional text should follow the score. Use the scoring criteria for internal reference only.
+
+            - Level 1 - 80% respond by name, normal eye contact, they can sit on a chair for more than 5 mins, they can follow simple directions, get social skills and mix with others. Got good fine motor skills. Level kids can answer WH Question.
+
+            - Level 2 - will have behavior issues, anger issues, take more calm down than a typical child, cannot say or understand complex sentences, Less academic skill than L1, Got social skill and mix with others. Got good fine motor skills. Level kids can answer WH Question. 
+
+            - Level 3 -  Level 3 and Level 2 has a lot of gaps in cognitive skill and it's more visible. They cannot stand on line, they have hyper activity and behavior, less social skill than L2 and less intention to mix with others. Less fine motor skill than Level 2. Level cannot answer WH question and got echolalia 
+ 
+            - Level 4 - Severe behavior issue. Need 1-1 attention for each kid in school. Less cognitive skill, fine motor skill, social skill than L3.  Level 4 is mostly nonverbal, zero social skill. Most non compliant or do not follow instructions at all.
+
+            - Level 1: Score should be 0.8 to 1
+            - Level 2: Score should be 0.6 to 0.79
+            - Level 3: Score should be 0.3 to 0.59
+            - Level 4: Score should be below 0.3
+
+            Your recommendation must strictly end with Score= X.X, where X.X is a single decimal number. No text should follow the score.
+           
+
+            Question: Does the student have issues with social interactions?
+            ParentAnswer: My child struggles with making friends and often prefers to play alone. They don't seem to understand social cues well.
+'
+            Recommendation: Based on the parent's observations it's evident that the student faces challenges in social interactions and lacks a good understanding of social cues. To close this gap and aim for progressing the student to the next level, the following actions are recommended for implementation in the coming school days: 
+
+            1. Collaborate with a speech and language therapist to focus on social communication skills.
+            2. Conduct behavioral observations in multiple social settings to pinpoint specific areas of difficulty.
+            3. Introduce tailored interventions like Social Skills Training (SST) and Peer-Mediated Instruction and Intervention (PMII) based on assessment findings.
+
+            These actions will be reviewed and updated regularly to ensure effectiveness and suitability for the student's evolving needs. 
+
+            IEP Participant: {question}
+            IEP Participant's Feedback: {parentAnswer}
+
+            Please make sure to provide both score and Goals. Goals should be SMART (Specific, Measurable,Achievable, Relevant and Time-bound). Please also include recommended services to achieve the goals. For example if student needs minimal speech improvment you can suggest to include 30 min speech threapy every week for 6 months.  Response should be formatted as: Score=$score Goals: Recommended Services:
+            
+
+            """
+        
+        response = {
+
+            "response": call_gemini_pro_llm_api(prompt_str)
+        }
+
+        return jsonify(response)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 
 def build_formatted_parent_answers(content):
     formatted_parent_answers = ""
