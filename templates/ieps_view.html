@@ -274,46 +274,53 @@ function summarizeIeps() {
 
 
     </script>
+
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+     <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
+     <script>
+     
+     $(document).ready(function() {
+ 
+ 
+         // Initialize Semantic UI dropdown with default value
+         $('#llm_provider_dropdown').dropdown('set selected', 'LLAMA2');
+ 
+         // Set the hidden input value to the default value
+         $('input[name="llm_provider"]').val('LLAMA2');
+ 
+         // Initialize Semantic UI dropdown
+         $('#llm_provider_dropdown').dropdown({
+             onChange: function(value, text, $selectedItem) {
+                 // Update the hidden input with the selected value
+                 $('input[name="llm_provider"]').val(value);
+             }
+         });
+ 
+     });
+     
+     </script>
 </head>
 <body>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <script>
-    
-    $(document).ready(function() {
 
+    <input type="checkbox" id="active" />
+    <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
+    <!---------- NAVIGATION BAR ---------->
+    <nav>
+        <ul>
+            <li><a href="/educator_view" class="active">Home</a></li>
+            <li><a href="/assessment" class="active">Assessment, Plan, and Service Recommendation</a></li>
+            <li><a href="/iep_template">Customize IEP Questions</a></li>
+            <li><a href="/ieps_view">IEP Insights and History</a></li>
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
+            
+        </ul>
+    </nav>
 
-        // Initialize Semantic UI dropdown with default value
-        $('#llm_provider_dropdown').dropdown('set selected', 'LLAMA2');
-
-        // Set the hidden input value to the default value
-        $('input[name="llm_provider"]').val('LLAMA2');
-
-        // Initialize Semantic UI dropdown
-        $('#llm_provider_dropdown').dropdown({
-            onChange: function(value, text, $selectedItem) {
-                // Update the hidden input with the selected value
-                $('input[name="llm_provider"]').val(value);
-            }
-        });
-
-    });
-    
-    </script>
-
-    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
-        <h1 class="text-xl md:text-3xl font-semibold">IEP Insights & History</h1>
-    
-        <div class="flex">
-            <button onclick="educatorView()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
-                Dashboard
-            </button>
-    
-            <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                Logout
-            </button>
-        </div>
+    <header class="flex justify-between items-center py-5 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold"></h1>
     </header>
     
 
@@ -382,5 +389,9 @@ function summarizeIeps() {
     <div id="iepSummary" style="display: none;" class="max-w-4xl mx-auto my-6 p-6 bg-white rounded shadow-lg" style="display: none;">
         
     </div>
+
+    <script>
+        new Darkmode().showWidget();
+    </script>
 </body>
 </html>
