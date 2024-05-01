@@ -343,3 +343,29 @@ nav ul li a {
 nav ul li a:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.toggle-btn {
+  position: fixed;
+  z-index: 1001; /* Ensures it stays above other content */
+  right: 20px;
+  top: 20px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  background: #333; /* Dark background for contrast */
+  color: #fff; /* White color for the icon */
+  border: 2px solid #fff; /* White border to stand out on any background */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Shadow for depth */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Change icon and background on active state */
+#active:checked ~ .toggle-btn {
+  background: #fff; /* White background */
+  color: #333; /* Dark color for the icon */
+  border: 2px solid #333; /* Dark border */
+}
