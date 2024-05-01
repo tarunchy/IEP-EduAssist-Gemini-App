@@ -310,7 +310,7 @@ def get_iep_assessment():
             IEP Participant: {question}
             IEP Participant's Feedback: {parentAnswer}
 
-            Your response should be formatted as: Score=$score Goal Recommendation
+            Please make sure to provide both score and SMART (Specific, Measurable,Achievable, Relevant and Time-bound) Goal in your response. Response should be formatted as: Score=$score SmartGoals
             
 
             """
