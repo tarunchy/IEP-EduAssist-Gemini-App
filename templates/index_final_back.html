@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart IEP</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/knowledgebase-stylesheet.css') }}">
+   
+	<script src="{{ url_for('static', filename='js/js_eip.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.x/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+
+    <style>
+.content-width-button {
+        display: inline-block; /* or 'inline-flex' if you prefer */
+        /* Other styling as needed, e.g., padding, border, etc. */
+    }
+        /* Mobile-first approach */
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.container {
+    padding: 10px;
+    width: 100%;
+}
+
+.header {
+    font-size: 1.5rem;
+}
+
+.small-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: gray; /* Gray background */
+    color: black; /* Dark text */
+    border: none; /* Optional: removes the border */
+}
+
+
+/* For tablet and desktop */
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 20px;
+        width: 80%;
+    }
+
+    .header {
+        font-size: 2rem;
+    }
+
+    .small-button {
+        padding: 15px;
+        font-size: 18px;
+    }
+}
+
+/* Mobile-first approach */
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* For tablet and desktop */
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+
+.footer {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f1f1f1; /* Or any other color that suits your design */
+}
+
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);  /* Slightly transparent white background */
+        padding: 20px;
+    }
+
+
+
+        .sticky-buttons {
+        position: sticky;
+        top: 20px;  /* Adjust this value based on where you want the buttons to stick */
+        background-color: #fff;  /* Optional: To ensure the background contrasts against page content */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Optional: Adds a subtle shadow */
+        z-index: 1000;  /* Optional: To ensure the buttons appear above all other elements */
+    }
+
+        .body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+           
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-label {
+            font-size: 18px;
+        }
+
+        .checkbox {
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .small-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .small-button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-height: 80vh; /* Maximum height */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+    </style>
+
+<style>
+    .popup {
+        display: none;
+        position: absolute;
+        z-index: 1000;
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-width: 300px; /* Adjust as needed */
+    }
+</style>
+
+<style>
+
+   .popup-textarea {
+        width: 100%;
+        height: 80vh; /* 80% of the viewport height */
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .fullscreen-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        overflow-y: auto; /* Allows scrolling */
+        padding-top: 50px; /* Space for close button */
+    }
+
+    .popup-content {
+        margin: auto;
+        padding: 20px;
+        width: 80%;
+        background: white;
+    }
+
+    .close-btn {
+        margin: 0 0 10px auto;
+        padding: 5px 20px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    var currentTextarea = null;
+
+    function showPopup(question, textarea) {
+        currentTextarea = textarea; // Store reference to the original textarea
+        var popup = document.getElementById("fullscreen-popup");
+        var popupTitle = document.getElementById("popup-title"); // Get the header element
+        var popupTextarea = document.getElementById("popup-textarea");
+
+        popupTextarea.value = textarea.value || textarea.placeholder; // Set the text in the popup textarea
+        popupTitle.innerText = question; // Set the question as the title
+        popup.style.display = 'block'; // Show the popup
+    }
+
+
+    function hidePopup() {
+        if (currentTextarea) {
+            var popupTextarea = document.getElementById("popup-textarea");
+            currentTextarea.value = popupTextarea.value; // Update the main textarea with edited text
+        }
+        var popup = document.getElementById("fullscreen-popup");
+        popup.style.display = 'none';
+    }
+</script>
+
+
+
+    <script>
+
+        // Function to read the question
+        function speakQuestion(index) {
+        var fullText = document.getElementById('question' + index).nextElementSibling.innerText;
+        var questionText = fullText.replace("🔊", "").trim();  // Removing the speaker icon
+        var msg = new SpeechSynthesisUtterance();
+        msg.text = questionText;
+        window.speechSynthesis.speak(msg);
+        }
+
+        async function makeApiCall(index, question, parentAnswer, age, student_type,llm_provider) {
+            return $.ajax({
+                url: '/get_iep_assessment',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    question: question,
+                    parentAnswer: parentAnswer,
+                    age: age,
+                    llm_provider:llm_provider,
+                    student_type: student_type,
+                }),
+            }).then(function(data) {
+                $('#iepAssessment' + index).val(data.response);
+                const scorePattern = /Score= (\d\.\d)/;  // Regex to find "Score= X.X"
+                const match = data.response.match(scorePattern);
+                if (match) {
+                    return parseFloat(match[1]);  // Return the extracted score as a float
+                } else {
+                    return null;
+                }
+            }).catch(function(error) {
+                alert('Error generating IEP Assessment.');
+            });
+        }
+
+    $(document).ready(function() {
+
+
+        $('#saveIep').click(function() {
+        const studentId = $('#studentIdSearch').val();
+        if (!studentId) {
+            alert('Please select a student.');
+            return;
+        }
+
+        let iepData = {
+            studentId: studentId,
+            assessmentScore: $('#hiddenAverageScore').val(),
+            assessedLevel: $('#hiddenAssessedLevel').val(),
+            questions: []
+        };
+
+        $('.question').each(function(index) {
+            const questionText = $('label[for="question' + index + '"]').text();
+            const parentAnswer = $('#parentAnswer' + index).val();
+            const iepAssessment = $('#iepAssessment' + index).val();
+
+            iepData.questions.push({
+                question: questionText,
+                parentAnswer: parentAnswer,
+                iepAssessment: iepAssessment
+            });
+        });
+
+        // Send the IEP data to the Flask route
+        $.ajax({
+            url: '/api/save_iep',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(iepData),
+            success: function(response) {
+                alert('IEP saved successfully: ' + response.iepId);
+            },
+            error: function(error) {
+                alert('Error saving IEP: ' + error.responseText);
+            }
+        });
+    });
+
+
+
+
+    $('#loadQuestions').click(function() {
+        var age = $('#age').val();
+        var student_type = $('#student_type').val();
+
+        var assessment_capture_type = $('#assessment_capture_type').val();
+
+        if (student_level === "First Time Assessment") {
+            age = 3;
+        } else if (student_level === "Level 1") {
+            age = 4;
+        } else if (student_level === "Level 2") {
+            age = 5;
+        } else if (student_level === "Level 3") {
+            age = 6;
+        } else if (student_level === "Level 4") {
+            age = 7;
+        }
+
+        if (assessment_capture_type === "Import Manually") {
+            age = 8;
+        }
+
+		if((!age && typeof(age)=='object')||(!student_type && typeof(student_type)=='object')){
+			alert("Please select Age and Student Type for IEP");
+			exit;
+		}
+        $.ajax({
+            url: '/get_iep_template',
+            type: 'GET',
+            data: {age: age, student_type: student_type},
+            success: function(data) {
+                var questionsHtml = '';
+                // Take the array directly from the object
+                var questionsArray = Object.values(data)[0]; // take the first (and possibly only) value
+                if (questionsArray) {
+                    questionsArray.forEach(function(question, index) {
+                       
+                        
+                        let escapedQuestion = JSON.stringify(question.question).slice(1, -1); // Remove the surrounding quotes
+        
+                        questionsHtml += '<div class="question">' +
+                            '<input type="radio" name="questions" id="question' + index + '" class="question-checkbox">' +
+                            '<label for="question' + index + '">' + (index + 1) + '. ' + question.question +
+                            ' <span class="speak-icon" onclick="speakQuestion(' + index + ')">🔊</span>' +
+                            '</label>' +
+                            '<textarea id="parentAnswer' + index + '" rows="2" class="border border-gray-300" placeholder="Assessment will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
+                            '<textarea id="iepAssessment' + index + '" rows="2" class="border border-gray-300" placeholder="IEP Goal will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
+                            '</div>';
+                    });
+                
+
+                $('#questions').html(questionsHtml);
+                $('#hiddenIepData').val(JSON.stringify(data));
+				document.getElementById("assessButton").style.display = "block";
+                if (assessment_capture_type === "Import Manually") {
+                    document.getElementById("uploadDocs").style.display = "block";
+                } else {
+                    document.getElementById("uploadDocs").style.display = "none";
+                }
+                } else {
+                    alert('No questions found for this age and student type');
+                }
+            },
+            error: function(error) {
+                alert('Error loading questions');
+            }
+        });
+    });
+
+    $('#simulateParent').click(function() {
+
+    selectedQuestionIndex = null;
+            $('.question-checkbox').each(function(index) {
+                if ($(this).prop('checked')) {
+                    selectedQuestionIndex = index;
+                    $('#loader').css('display', 'block');
+                }
+            });
+            // Show the loader
+    if (selectedQuestionIndex === null) {
+            alert("Please select atleast one question to assess.");
+        return;
+    }
+    // Get the question and parent answer for the selected question
+    var selectedQuestion = $('label[for="question' + selectedQuestionIndex + '"]').text();
+    var selectedParentAnswer = $('#parentAnswer' + selectedQuestionIndex).val();
+    console.log('Selected Question: ', selectedQuestion);
+    console.log('Selected Parent Answer: ', selectedParentAnswer);
+    console.log('Selected Question Index: ', selectedQuestionIndex);
+
+    var age = $('#age').val();
+    var student_type = $('#student_type').val();
+    var llm_provider = $('#llm_provider').val();
+
+    if (selectedQuestion) {
+        // Make the API call to get the IEP Assessment recommendation
+        $.ajax({
+            url: '/get_ai_answer',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                question: selectedQuestion,
+                parentAnswer: selectedParentAnswer,
+                age: age,
+                llm_provider:llm_provider,
+                student_type: student_type,
+
+            }),
+            success: function(data) {
+                // Assuming data.response is your string
+                var modifiedString = data.response.replace("<<IEPParticipantAnswer>>", "").trim();
+
+                $('#parentAnswer' + selectedQuestionIndex).val(modifiedString);
+                // Hide the loader
+                $('#loader').css('display', 'none');
+            },
+            error: function(error) {
+                alert('Error generating IEP Assessment.');
+                // Hide the loader
+                $('#loader').css('display', 'none');
+            }
+        });
+    } else {
+        $('#loader').css('display', 'none');
+        alert('Please select an IEP Question ');
+    }
+    });
+
+
+    $('#getAssessment').click(function() {
+
+        selectedQuestionIndex = null;
+                $('.question-checkbox').each(function(index) {
+                    if ($(this).prop('checked')) {
+                        selectedQuestionIndex = index;
+						$('#loader').css('display', 'block');
+                    }
+                });
+		        // Show the loader
+        if (selectedQuestionIndex === null) {
+				alert("Please select atleast one question to assess.");
+            return;
+		}
+        // Get the question and parent answer for the selected question
+        var selectedQuestion = $('label[for="question' + selectedQuestionIndex + '"]').text();
+        var selectedParentAnswer = $('#parentAnswer' + selectedQuestionIndex).val();
+        console.log('Selected Question: ', selectedQuestion);
+        console.log('Selected Parent Answer: ', selectedParentAnswer);
+        console.log('Selected Question Index: ', selectedQuestionIndex);
+
+        var age = $('#age').val();
+        var student_type = $('#student_type').val();
+        var llm_provider = $('#llm_provider').val();
+
+        if (selectedQuestion && selectedParentAnswer) {
+            // Make the API call to get the IEP Assessment recommendation
+            $.ajax({
+                url: '/get_iep_assessment',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    question: selectedQuestion,
+                    parentAnswer: selectedParentAnswer,
+                    age: age,
+                    llm_provider:llm_provider,
+                    student_type: student_type,
+
+                }),
+                success: function(data) {
+                    $('#iepAssessment' + selectedQuestionIndex).val(data.response);
+                    // Hide the loader
+                    $('#loader').css('display', 'none');
+                },
+                error: function(error) {
+                    alert('Error generating IEP Assessment.');
+                    // Hide the loader
+                    $('#loader').css('display', 'none');
+                }
+            });
+        } else {
+            alert('Please select a question and ensure that a parent answer exists.');
+        }
+        });
+
+
+        $('#assessAll').click(async function() {
+            let questionsCount = $('.question').length;
+            let age = $('#age').val();
+            let student_type = $('#student_type').val();
+            let llm_provider = $('#llm_provider').val();
+            let progress = 0;
+            let totalScore = 0;
+            let validScores = 0;
+
+            // Show the modal
+            $('#progressBar').val(0);
+            $('#progressModal').show();
+
+            // Validate if all questions have been answered by the parent
+            for(let i = 0; i < questionsCount; i++) {
+                let parentAnswer = $('#parentAnswer' + i).val();
+                if (!parentAnswer) {
+                    alert(`Question ${i + 1} must be answered by parent before starting.`);
+                    $('#progressModal').hide();
+                    return;
+                }
+            }
+
+            // Loop through all questions and make API calls sequentially
+            for(let i = 0; i < questionsCount; i++) {
+                let question = $('label[for="question' + i + '"]').text();
+                let parentAnswer = $('#parentAnswer' + i).val();
+
+                // Wait for each API call to complete before moving on to the next
+                const score = await makeApiCall(i, question, parentAnswer, age, student_type,llm_provider);
+                
+                if (score !== null) {
+                    totalScore += score;
+                    validScores++;
+                }
+
+                progress += 100 / questionsCount;
+                $('#progressBar').val(progress);  // Update progress bar value here
+            }
+
+            // Calculate the average score
+            if (validScores > 0) {
+                const averageScore = totalScore / validScores;
+
+                // Determine assessed Level
+                let assessedLevel = '';
+                if (averageScore >= 0.8) {
+                    assessedLevel = 'Level 1';
+                } else if (averageScore >= 0.6) {
+                    assessedLevel = 'Level 2';
+                } else if (averageScore >= 0.3) {
+                    assessedLevel = 'Level 3';
+                } else {
+                    assessedLevel = 'Level 4';
+                }
+
+                // Add the assessed level to your HTML
+                
+                $('#assessedLevelDiv').text(`Assessed Level: ${assessedLevel} (Score: ${averageScore.toFixed(2)})`);
+
+                $('#hiddenAssessedLevel').val(assessedLevel);
+                $('#hiddenAverageScore').val(averageScore.toFixed(2));
+
+            }
+
+            // Hide the modal
+            $('#progressModal').hide();
+        });
+
+
+
+    $('#loadDocument').click(function() {
+
+        var fileInput = document.getElementById('file-upload');
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+    
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('parentAnswer0').value = data.extractedText;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    )
+
+
+        $('#generate').click(function() {
+            let allQuestionsAnswered = true;
+            let allIepAssessmentsComplete = true;
+
+            // Check if all questions have answers and if all IEP assessments are complete
+            $('.question').each(function(index) {
+                const parentAnswer = $('#parentAnswer' + index).val();
+                const iepAssessment = $('#iepAssessment' + index).val();
+
+                if (!parentAnswer) {
+                    allQuestionsAnswered = false;
+                }
+
+                if (!iepAssessment) {
+                    allIepAssessmentsComplete = false;
+                }
+            });
+
+            if (!allQuestionsAnswered) {
+                alert('All questions must be answered by the parent before generating the IEP report.');
+                return;
+            }
+
+            if (!allIepAssessmentsComplete) {
+                alert('IEP assessments for all questions must be complete before generating the IEP report.');
+                return;
+            }
+
+            let reportContent = '<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">';
+
+            reportContent += '<thead><tr style="background-color: #007bff; color: white;"><th style="padding: 10px; border: 1px solid #ccc;">Participant</th><th style="padding: 10px; border: 1px solid #ccc;">Assessment</th><th style="padding: 10px; border: 1px solid #ccc;">Plan</th><th style="padding: 10px; border: 1px solid #ccc;">Service Recommendation</th></tr></thead>';
+            reportContent += '<tbody>';
+
+            $('.question').each(function(index) {
+                const questionText = $('label[for="question' + index + '"]').text();
+                const parentAnswer = $('#parentAnswer' + index).val();
+                const iepAssessment = $('#iepAssessment' + index).val();
+                //const iepService = $('#iepService' + index).val();
+
+                reportContent += '<tr>';
+                reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + questionText + '</td>';
+                reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + parentAnswer.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
+                reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + iepAssessment.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
+                //reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + iepService.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
+                reportContent += '</tr>';
+            });
+
+            reportContent += '</tbody></table>';
+
+            let assessedLevel = $('#assessedLevelDiv').text();
+
+             // Debugging: log the value right before reading it
+            console.log("Debug: Value before using it:", $('#assessedLevelValue').val());
+
+
+            const emailButton = '<button id="emailButton" class="icon small-button bg-gray-500 hover:bg-gray-600 text-white">Email Report</button>';
+            const printButton = '<button id="printButton" cclass="icon small-button bg-gray-500 hover:bg-gray-600 text-white">Print Report</button>';
+
+            const reportWindow = window.open('', '_blank');
+            reportWindow.document.open();
+            reportWindow.document.write('<html><head><title>This Report Generated by IEP CoPilot Insight</title>');
+
+            // Include Tailwind's CSS (if you want to use Tailwind classes in your report)
+            reportWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.x/dist/tailwind.min.css" rel="stylesheet">');
+
+            reportWindow.document.write('</head><body class="font-sans bg-gray-100 p-4">');
+            // reportWindow.document.write('<h1 class="text-2xl font-bold text-gray-800 mb-4">This Report Generated by IEP CoPilot Insight</h1>');
+
+            
+            reportWindow.document.write(`<h2 class="text-xl font-bold text-gray-700 mb-4">${assessedLevel}</h2>`);
+
+            reportWindow.document.write(reportContent);
+            reportWindow.document.write('</body></html>');
+            reportWindow.document.close();
+        });
+
+});
+
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+
+
+        var recognition; // SpeechRecognition object
+        var isRecording = false;
+        var selectedQuestionIndex = null;
+        var shouldStop = false; // You can actually remove this line if you don't use it elsewhere
+
+        try {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            // Allow for continuous recognition
+            recognition.continuous = true;
+        }
+        catch(e) {
+            alert('SpeechRecognition not supported by this browser.');
+            return;
+        }
+
+        recognition.onstart = function() {
+            isRecording = true;
+            document.getElementById('mic-icon').classList.add("recording-icon"); // Add recording animation
+        };
+
+        recognition.onresult = function(event) {
+            if (selectedQuestionIndex !== null) {
+                var transcriptTextarea = $('#parentAnswer' + selectedQuestionIndex);
+                var newTranscript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    newTranscript += event.results[i][0].transcript;
+                }
+                transcriptTextarea.val(transcriptTextarea.val() + ' ' + newTranscript);
+                //$('#question' + selectedQuestionIndex).parent().css('background-color', 'green'); // Change color to green after completion
+            }
+        };
+
+        recognition.onend = function() {
+            isRecording = false;
+            document.getElementById('mic-icon').classList.remove("recording-icon"); // Remove recording animation
+            if (!shouldStop) {
+                recognition.start();
+            }
+            
+            // Directly restart the recognition without checking any flag
+        };
+
+        $('#start').click(function() {
+            if (isRecording) {
+                return;
+            }
+
+            selectedQuestionIndex = null;
+            $('.question-checkbox').each(function(index) {
+                if ($(this).prop('checked')) {
+                    selectedQuestionIndex = index;
+                }
+            });
+
+            if (selectedQuestionIndex === null) {
+                alert('Please select a question first.');
+                return;
+            }
+
+            recognition.start();
+        });
+
+        $('#stop').click(function() {
+            shouldStop = true; 
+            recognition.stop();
+        });
+
+});
+
+
+</script>
+
+
+<script>
+
+function openStudentSearchPopup() {
+    $('#studentSearchPopup').show();
+    fetchStudentsForPopup();
+}
+
+function fetchStudentsForPopup() {
+    $.ajax({
+        url: '/api/get_students',
+        type: 'GET',
+        success: function(students) {
+            populatePopupStudentTable(students);
+        },
+        error: function(error) {
+            alert('Error fetching students: ' + error.responseText);
+        }
+    });
+}
+
+function populatePopupStudentTable(students) {
+    const tableBody = $('#popupStudentsTable tbody');
+    tableBody.empty();
+    students.forEach(student => {
+        tableBody.append(`
+            <tr onclick="selectStudent('${student.studentId}', '${student.dob}', '${student.level}')">
+                <td><input type="radio" name="popupSelectedStudent" value="${student.studentId}"></td>
+                <td>${student.studentId}</td>
+                <td>${student.firstName}</td>
+                <td>${student.lastName}</td>
+                <td>${student.dob}</td>
+                <td>${student.level}</td>
+            </tr>
+        `);
+    });
+}
+
+function selectStudent(studentId, dob, level) {
+    $('#studentIdSearch').val(studentId);
+    calculateAndSetAge(dob);
+    $('#student_level').val(level);
+    closeStudentSearchPopup();
+}
+
+function calculateAndSetAge(dob) {
+    const birthDate = new Date(dob);
+    const ageDifMs = Date.now() - birthDate.getTime();
+    const ageDate = new Date(ageDifMs);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    $('#age').val(age);
+}
+
+function closeStudentSearchPopup() {
+    $('#studentSearchPopup').hide();
+}
+
+
+</script>
+
+
+    
+</head>
+
+<body class="font-sans bg-gray-100">
+
+    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold">Assessment, Plan, and Service Recommendation</h1>
+    
+        <div class="flex">
+            <button onclick="educatorView()" class="icon bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+                Dashboard
+            </button>
+    
+            <button onclick="logoutUser()" class="icon bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <div id="overlay"></div>
+    <div class="container mx-auto p-4">
+       
+
+        <div id="wrapper">
+        <div class="checkbox-container">
+            <label class="checkbox-label" for="consent"><i class="fas fa-user-check"></i> Enable Recording:</label>
+            <input class="checkbox" type="checkbox" id="consent" onclick="enableReq();">
+        </div>
+              
+
+        <div id="recordButton" class="recording-disable gap-2 fixed-buttons" style="display: none;">
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="getAssessment"><i class="fas fa-search"></i> Assess</button>
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="start" title="Start Recording" ><i class="fas fa-play"></i></button>
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="stop" title="Stop Recording"><i class="fas fa-stop"></i></button>
+            <span id="status"><i id="mic-icon" class="fas fa-microphone"></i></span>
+
+        </div>
+    </div>
+        
+
+    <div class="mb-4 flex items-center">
+        <label for="studentIdSearch" class="block text-gray-700 text-sm font-bold mr-2">Student ID:</label>
+        <input type="text" id="studentIdSearch" name="studentIdSearch" required readonly class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline flex-grow" />
+        <button class="ml-2 bg-transparent border-transparent text-black p-2 rounded focus:outline-none focus:shadow-outline" id="searchStudent" onclick="openStudentSearchPopup()">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    
+    
+
+       
+
+
+    <div class="mb-4 flex items-center" >
+        <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Select Age:</label>
+        <select id="age" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value="" disabled selected>Select Age</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+            </select>
+        </div>
+
+        
+        
+
+        <input type="hidden" id="student_type" name="student_type" value="special_need">
+
+        <div class="mb-4 flex items-center">
+            <label for="student_level" class="block text-gray-700 text-sm font-bold mb-2">Select Student Current Level:</label>
+            <select id="student_level" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <option value="First Time Assessment">First Time Assessment</option>
+              <option value="Level 1">Level 1</option>
+              <option value="Level 2">Level 2</option>
+              <option value="Level 3">Level 3</option>
+              <option value="Level 4">Level 4</option>
+            </select>
+        </div>
+
+        <div class="mb-4 flex items-center">
+            <label for="assessment_capture_type" class="block text-gray-700 text-sm font-bold mb-2">Initiate Assessment By:</label>
+            <select id="assessment_capture_type" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <option value="Import Manually">Import Manually</option>
+              <option value="Capture Real-Time">Capture Real-Time</option>
+            </select>
+        </div>
+        
+
+        <div>
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="loadQuestions" title="Start Assessmnent">
+                <i class="fas fa-sync-alt"></i> Start Assessmnent
+            </button>
+        </div>
+        
+        <div id="uploadDocs" class="mb-4 flex items-center" style="display: none;">
+            <label for="file-upload" class="block text-gray-700 text-sm font-bold mb-2">Select Document</label>
+            <input id="file-upload" type="file" class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+
+            <div>
+                <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="loadDocument" title="Load Document">
+                    <i class="fas fa-sync-alt"></i> Load Document
+                </button>
+            </div>
+            
+        </div>
+          
+
+        <div id="questions"></div>
+
+        <div id="assessButton" class="flex flex-wrap justify-center gap-2 mt-4" style="display: none;">
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="simulateParent">
+                <i class="fas fa-user"></i> Refine Assessment By AI
+            </button>
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="assessAll">
+                <i class="fas fa-check-circle"></i> Generate IEP
+            </button>
+
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="generate">
+                <i class="fas fa-eye"></i> Preview
+            </button>
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="saveIep">
+                <i class="fas fa-save"></i> Save IEP
+            </button>
+            
+
+            <div id="progressModal" class="modal">
+                <div class="modal-content">
+                    <h3>IEP Assessment in Progress</h3>
+                    <h4>Disclaimer</h4>
+                    <p></p>Using the AI Assessment tool supports your teaching but doesn't replace your judgment. You're responsible for reviewing and sharing reports with parents. By using this feature, you agree to these terms.</p>
+
+                    <progress id="progressBar" value="0" max="100"></progress>
+                </div>
+            </div>
+            <input type="hidden" id="hiddenIepData">
+            <div id="loader" class="loader"></div>
+        </div>
+
+        <div id="assessedLevelDiv">
+
+        </div>
+
+    </div>
+
+    <input type="hidden" id="hiddenAssessedLevel" name="hiddenAssessedLevel">
+<input type="hidden" id="hiddenAverageScore" name="hiddenAverageScore">
+
+<div id="studentSearchPopup" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" style="display: none;">
+    <div class="modal-content bg-white w-full md:w-1/2 mx-auto rounded shadow-lg p-4 mt-10">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold">Select a Student</h3>
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" onclick="closeStudentSearchPopup()">&times;</button>
+        </div>
+        <table id="popupStudentsTable" class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Select</th>
+                    <th class="px-4 py-2 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                    <th class="px-4 py-2 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                    <th class="px-4 py-2 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                    <th class="px-4 py-2 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">DOB</th>
+                    <th class="px-4 py-2 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Student Current Level</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <!-- Students data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="fullscreen-popup" class="fullscreen-popup" style="display:none;">
+    <div class="popup-content">
+        <button onclick="hidePopup()" class="close-btn">Close</button>
+        <h3 id="popup-title"></h3> <!-- Header for the question -->
+        <textarea id="popup-textarea" class="popup-textarea"></textarea>
+    </div>
+</div>
+
+
+
+
+</body>
+
+    
+
+
+</html>
