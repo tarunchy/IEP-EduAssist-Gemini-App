@@ -178,4 +178,103 @@ input[type="checkbox"] {
       display: block; /* Makes each link fill the available horizontal space */
     }
   }
-  
+
+
+/* ============ NAV toggle ============ */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;  /* Ensures it covers the full viewport height */
+  width: 100vw;   /* Ensures it covers the full viewport width */
+  background: rgba(0, 0, 0, 0.95); /* Slightly see-through black */
+  clip-path: circle(0% at 100% - 45px 45px); /* Starts closed near the toggle button */
+  transition: all 0.5s ease-in-out;
+}
+
+#active:checked ~ nav {
+  clip-path: circle(150% at 100% - 45px 45px); /* Expands out to cover the entire view */
+}
+
+.toggle-btn {
+    position: fixed; /* Keeps the toggle button in a fixed position relative to the viewport */
+    z-index: 1000; /* Ensures it stays above other content */
+    right: 20px;
+    top: 20px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000; /* Icon color */
+    background: #fff; /* Button background color */
+    transition: all 0.3s ease-in-out;
+}
+
+#active:checked ~ .toggle-btn {
+  color: #fff;
+  background: #000;
+}
+
+#active:checked ~ .toggle-btn i:before {
+  content: "\f00d"; /* Font Awesome 'times' icon to indicate closing the menu */
+}
+
+nav ul {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+  text-align: center;
+}
+
+nav ul li {
+  margin: 32px 0;
+}
+
+nav ul li a {
+  color: none;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 400;
+  padding: 8px 30px;
+  color: #fff;
+  border-radius: 50px;
+  background: #000;
+  position: relative;
+  line-height: 50px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:after {
+  position: absolute;
+  content: "";
+  width: 104%;
+  height: 112%;
+  left: -2%;
+  top: -5%;
+  z-index: -1;
+  background: #14ffe9;
+  background: linear-gradient(135deg, #14ffe9, #12c2e9, #c471ed, #f64f59);
+  border-radius: 50px;
+  transform: scaleY(0);
+  animation: navlink-rotate 1.5s linear infinite;
+  transition: transform 0.3s ease;
+}
+
+nav ul li a:hover:after {
+  transform: scaleY(1);
+}
+
+nav ul li a:hover {
+  color: #fff;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
