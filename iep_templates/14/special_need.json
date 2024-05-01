@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age14_SpecialNeed": [
+    {
+      "question": "How does the student manage interpersonal relationships with peers?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can form and maintain healthy relationships with peers."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student independently complete multi-step tasks?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can independently complete multi-step tasks without assistance."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student cope with complex academic material?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and respond to complex academic material."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student exhibit severe behavior issues that require immediate attention?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student exhibits manageable behavior without requiring immediate 1-on-1 attention."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to communicate effectively in both verbal and written forms?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can effectively communicate verbally and in written form."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

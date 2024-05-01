@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive App with Full-Screen Background</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('tailwind.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .custom-nav a {
+            color: white;
+            text-shadow: 1px 1px 2px black; /* Enhances readability */
+        }
+    </style>
+</head>
+<body class="text-white">
+    <nav class="p-4 custom-nav">
+        <ul class="flex flex-col md:flex-row">
+            <li class="mb-2 md:mb-0 md:mr-6">
+                <a href="#" class="hover:text-gray-300">Home</a>
+            </li>
+            <li class="mb-2 md:mb-0 md:mr-6">
+                <a href="#" class="hover:text-gray-300">About</a>
+            </li>
+            <li class="mb-2 md:mb-0 md:mr-6">
+                <a href="#" class="hover:text-gray-300">Services</a>
+            </li>
+            <li class="mb-2 md:mb-0 md:mr-6">
+                <a href="#" class="hover:text-gray-300">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <main class="p-4 md:p-8">
+        <p>Welcome to the app!</p>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

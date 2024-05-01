@@ -1,0 +1,5 @@
+Flask
+Flask-CORS
+elasticsearch==7.10.0
+requests
+bcrypt

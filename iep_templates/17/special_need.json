@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age17_SpecialNeed": [
+    {
+      "question": "How well does the student understand abstract concepts?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student demonstrates understanding of abstract concepts appropriate for age 17."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to engage in vocational or pre-vocational activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can engage in vocational or pre-vocational tasks with minimum supervision."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student handle social interactions and peer relationships?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student has age-appropriate social skills and can form peer relationships."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to manage their own behavior and emotional responses?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can manage emotional responses and behavior in a way suitable for age 17."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student follow multi-step directions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can follow multi-step directions without requiring repeated instructions."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

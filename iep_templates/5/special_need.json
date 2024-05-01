@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age5_SpecialNeed": [
+    {
+      "question": "How often does the student participate in group activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student participates in group activities at least 70% of the time."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student understand and answer 'WH' questions (Who, What, Where, When, Why)?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and answer 'WH' questions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student manage anger or emotional outbursts?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student requires fewer interventions for emotional outbursts than previously."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to stand in line and wait for their turn?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can stand in line and wait for their turn without issues."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How well does the student interact with peers and adults?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student shows improvement in social skills and is able to interact without difficulty."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

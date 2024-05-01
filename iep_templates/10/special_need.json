@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age10_SpecialNeed": [
+    {
+      "question": "How often does the student complete classroom tasks independently?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can complete classroom tasks independently 80% of the time."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student handle conflict or disagreements with peers?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can resolve conflicts without aggression or severe emotional reactions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student understand and follow multi-step directions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and follow multi-step directions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student engage in social interactions, or do they isolate themselves?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student engages in social interactions instead of isolating themselves."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to perform age-appropriate fine motor tasks, such as writing?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can perform age-appropriate fine motor tasks."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age15_SpecialNeed": [
+    {
+      "question": "How does the student cope with social interactions with peers?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can have meaningful social interactions with peers."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student manage their behavior independently, without constant supervision?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can manage their behavior without constant supervision."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How well can the student understand and communicate complex ideas?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and communicate complex ideas."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to follow multi-step instructions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can follow multi-step instructions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student cope with changes in routine or environment?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can adapt to changes without significant distress."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

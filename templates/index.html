@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart IEP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+
+    <h1>Parent Teacher Discussion - Smart IEP</h1>
+
+    <div class="checkbox-label">
+        <label for="consent">Parent's Consent:</label>
+        <input type="checkbox" id="consent">
+        <button class="small-button" id="start">Start Recording</button>
+        <button class="small-button" id="stop">Stop Recording</button>
+        <span id="status"><i id="mic-icon" class="fas fa-microphone"></i></span>
+    </div>
+
+    
+
+    <label for="studentProfile">Select Student Profile:</label>
+    <select id="studentProfile">
+        <option value="3-6">Kids age 3 to 6</option>
+        <option value="7-12">Kids age 7 to 12</option>
+        <option value="13-17">Kids age 13 to 17</option>
+    </select>
+
+    <div id="questions"></div>
+
+    <label for="transcript">Transcript:</label>
+    <textarea id="transcript" rows="10" placeholder="Your speech will appear here"></textarea>
+    <div>
+        <button class="small-button" id="clear">Clear Transcript</button>
+        <button class="small-button" id="generate">Generate IEP</button>
+    </div>
+
+</body>
+</html>

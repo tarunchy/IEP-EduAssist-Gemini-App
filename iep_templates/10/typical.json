@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age10_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student engage in group activities?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if the student can work well in groups without conflicts."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student reading at grade level?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if the student's reading level aligns with the expected grade level."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How is the student's performance in mathematics?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if the student is able to complete grade-level math problems."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student participate in physical education activities?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if the student actively participates in PE classes."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

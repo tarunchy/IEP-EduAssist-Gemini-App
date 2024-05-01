@@ -1,0 +1,139 @@
+#assessedLevelDiv {
+    color: blue;  /* Change 'blue' to whatever color you want */
+  }  
+
+@media print {
+    /* Add your print-specific styles here */
+    body {
+      font-size: 12pt;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+  }
+.tabAlig{
+	padding: 1px;
+	width: 100%;
+	border: none;
+}
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 10;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    text-align: center;
+    width: 30%;
+  }
+
+  
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+	position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50%;
+    width: 10%;
+    height: 10%;
+    animation: spin 2s linear infinite;
+    display: none;  /* Initially hidden */
+	z-index: 11;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+button, textarea, label, input[type="checkbox"], select {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 18px;
+}
+label {
+    font-weight: bold;
+}
+#consent {
+    width: auto;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label label {
+    width: auto;
+    margin-right: 10px;
+}
+#questions {
+    margin-top: 20px;
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+.small-button {
+    width: auto;
+    padding: 5px 10px;
+    margin-right: 5px;
+    display: inline;
+	background-color: #468574;
+    color: white;
+}
+#status {
+    margin-left: 10px;
+}
+.recording-icon {
+    animation: pulse 1s infinite;
+    color: red;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.recording-disable {
+    display: none;
+	z-index:1;
+	position:fixed;
+	right:20px;
+}
+#overlay {
+	 position: fixed; /* Sit on top of the page content */
+	 display: none; /* Hidden by default */
+	 width: 100%; /* Full width (cover the whole page) */
+	 height: 100%; /* Full height (cover the whole page) */
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+	 background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+	 z-index: 10; /* Specify a stack order in case you're using a different order for other elements */
+	 cursor: pointer; /* Add a pointer on hover */
+}
+.headerColor {
+	text-align: center;
+    background-color: #468574;
+    color: white;
+}

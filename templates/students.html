@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <!-- Add other CSS files as needed -->
+</head>
+<body>
+    <!-- Responsive Navigation Menu -->
+<nav class="responsive-nav">
+    <div id="menuToggle">
+        <!-- Hidden checkbox, is used as click reciever for :checked -->
+        <input type="checkbox" />
+        
+        <!-- Hamburger Icon -->
+        <span></span>
+        <span></span>
+        <span></span>
+        
+        <!-- Menu Items -->
+        <ul id="menu">
+            <li><a href="/admin_view">Dashboard</a></li>
+            <li><a href="javascript:void(0)" onclick="logoutUser()">Logout</a></li>
+            <!-- Add more menu items here -->
+        </ul>
+    </div>
+</nav>
+
+    <div class="student-management-container">
+        <h2>Student Management</h2>
+        
+        <!-- Operation Selection -->
+        <label for="operation">Choose an operation:</label>
+        <select id="operation" onchange="handleOperationChange()">
+            <option value="add">Add Student</option>
+            <option value="browse">Browse Students</option>
+        </select>
+
+        <!-- Add Student Form -->
+        <div id="addStudentForm" style="display:none;">
+            <form id="studentForm">
+                <input type="hidden" id="studentId" name="studentId">
+                
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="level">Level:</label>
+                <select id="level" name="level">
+                    <option value="First Time Assessment">First Time Assessment</option>
+                    <option value="Level 1">Level 1</option>
+                    <option value="Level 2">Level 2</option>
+                    <option value="Level 3">Level 3</option>
+                    <option value="Level 4">Level 4</option>
+                </select>
+
+                <label for="studentImage">Student Image:</label>
+                <input type="file" id="studentImage" name="studentImage" accept="image/*">
+
+                <label for="behaviorVideo">Behavior Video:</label>
+                <input type="file" id="behaviorVideo" name="behaviorVideo" accept="video/*">
+
+                <label for="aboutStudent">About Student:</label>
+                <textarea id="aboutStudent" name="aboutStudent" rows="4" cols="50"></textarea>
+
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Browse Students -->
+        <div id="browseStudents" style="display:none;">
+            <table id="studentsTable">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>DOB</th>
+                        <th>Level</th>
+                        <th>IEPs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Students data will be populated here -->
+                </tbody>
+            </table>
+            <button onclick="editSelectedStudent()">Edit Selected</button>
+            <button onclick="terminateSelectedUser()">Delete Selected</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/js_eip.js') }}"></script>
+    <!-- Add other JS files as needed -->
+    <script>
+        $(document).ready(function() {
+            $('#studentForm').submit(function(e) {
+                e.preventDefault();
+                addOrUpdateStudent();
+            });
+        });
+
+        handleOperationChange(); 
+    
+        function handleOperationChange() {
+            var operation = $('#operation').val();
+            $('#addStudentForm').toggle(operation === 'add');
+            $('#browseStudents').toggle(operation === 'browse');
+            if (operation === 'browse') {
+                fetchStudents();
+            }
+        }
+    
+        function addOrUpdateStudent() {
+            const studentData = {
+                type: 'profile',
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                dob: $('#dob').val(),
+                level: $('#level').val(),
+                studentId: $('#studentId').val() // Empty for new student
+            };
+    
+            const url = studentData.studentId ? '/api/update_student' : '/api/add_student';
+            
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(studentData),
+                success: function(response) {
+                    alert(response.message);
+                    if (!studentData.studentId) {
+                        // Clear the form if a new student was added
+                        $('#studentForm')[0].reset();
+                    }
+                    fetchStudents(); // Refresh the student list
+                },
+                error: function(error) {
+                    alert('Error: ' + error.responseText);
+                }
+            });
+        }
+    
+        function fetchStudents() {
+            $.ajax({
+                url: '/api/get_students',
+                type: 'GET',
+                success: function(students) {
+                    populateStudentTable(students);
+                },
+                error: function(error) {
+                    alert('Error fetching students: ' + error.responseText);
+                }
+            });
+        }
+    
+        function populateStudentTable(students) {
+        const tableBody = $('#studentsTable tbody');
+        tableBody.empty(); // Clear existing rows
+        students.forEach(student => {
+            tableBody.append(`
+                <tr>
+                    <td><input type="radio" name="selectedStudent" value="${student.studentId}"></td>
+                    <td>${student.studentId}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.dob}</td>
+                    <td>${student.level}</td>
+                    <td><a href="#" onclick="viewStudentIEPs('${student.studentId}'); return false;">View IEPs</a></td>
+                </tr>
+            `);
+        });
+    }
+
+    function viewStudentIEPs(studentId) {
+    $.ajax({
+        url: '/api/student_ieps',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ studentId: studentId }),
+        success: function(ieps) {
+            displayIEPsInNewTab(ieps, studentId);
+        },
+        error: function(error) {
+            alert('Error fetching IEPs: ' + error.responseText);
+        }
+    });
+}
+
+function displayIEPsInNewTab(ieps, studentId) {
+    const reportWindow = window.open('', '_blank');
+    reportWindow.document.open();
+    reportWindow.document.write('<html><head><title>IEPs for Student</title>');
+
+    // Add enhanced styling
+    reportWindow.document.write(`<style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    background-color: #f4f4f4;
+                }
+                h1, h2 {
+                    color: #333;
+                }
+                .button {
+                    background-color: #007bff;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+                th, td {
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                }
+                th {
+                    background-color: #007bff;
+                    color: white;
+                }
+                tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+            </style>`);
+    reportWindow.document.write('</head><body>');
+    reportWindow.document.write('<h1>IEPs for Student ID: ' + studentId + '</h1>');
+
+    reportWindow.document.write('<table>');
+    reportWindow.document.write('<thead><tr><th>Date</th><th>Score</th><th>Level</th><th>Details</th></tr></thead>');
+    reportWindow.document.write('<tbody>');
+
+    // Loop through each IEP and create links with unique functions
+    ieps.forEach((iep, index) => {
+        let functionName = `displayIEPDetails${index}`;
+        reportWindow.document.write('<tr>');
+        reportWindow.document.write(`<td>${iep.iepDate}</td>`);
+        reportWindow.document.write(`<td>${iep.assessmentScore}</td>`);
+        reportWindow.document.write(`<td>${iep.assessedLevel}</td>`);
+        reportWindow.document.write(`<td><a href="#" onclick="${functionName}('${iep.studentId}_iep_${iep.iepId}', this); return false;">View Details</a></td>`);
+        reportWindow.document.write('</tr>');
+
+        // Define the displayIEPDetails function dynamically for each IEP
+        reportWindow[functionName] = function(iepId, linkElement) {
+            // You can either fetch IEP details via AJAX call or directly use the IEP data if available
+            // For now, let's assume we have the IEP data directly available as `iep`
+            var iepDetails = ieps.find(iep => `${iep.studentId}_iep_${iep.iepId}` === iepId);
+            var detailsDiv = reportWindow.document.getElementById('iepDetails');
+            var htmlContent = '<h2>IEP Details</h2>';
+            htmlContent += '<table border="1" style="width: 100%; border-collapse: collapse;">';
+            htmlContent += '<thead><tr><th>Question</th><th>Parent\'s Response</th><th>IEP Assessment</th></tr></thead>';
+            htmlContent += '<tbody>';
+            iepDetails.questions.forEach(question => {
+                htmlContent += '<tr>';
+                htmlContent += '<td>' + question.question + '</td>';
+                htmlContent += '<td>' + question.parentAnswer + '</td>';
+                htmlContent += '<td>' + question.iepAssessment.replace(/(?:\\r\\n|\\r|\\n)/g, '<br>') + '</td>';
+                htmlContent += '</tr>';
+            });
+            htmlContent += '</tbody></table>';
+            htmlContent += '<p><strong>Assessed Level:</strong> ' + iepDetails.assessedLevel + '</p>';
+            htmlContent += '<p><strong>Assessment Score:</strong> ' + iepDetails.assessmentScore + '</p>';
+            htmlContent += '<p><strong>IEP Date:</strong> ' + iepDetails.iepDate + '</p>';
+            detailsDiv.innerHTML = htmlContent;
+            linkElement.scrollIntoView();
+        };
+    });
+
+    reportWindow.document.write('</tbody></table>');
+    reportWindow.document.write('<div id="iepDetails"></div>');
+    reportWindow.document.write('</body></html>');
+    reportWindow.document.close();
+}
+
+
+
+
+// This function needs to be defined in the new tab or as part of a shared script
+function viewIEPDetails(iepId) {
+    // Logic to fetch and display the details of a specific IEP
+}
+
+
+
+    
+        function editSelectedStudent() {
+            const selectedStudentId = $('input[name="selectedStudent"]:checked').val();
+            if (!selectedStudentId) {
+                alert('Please select a student to edit.');
+                return;
+            }
+            // Retrieve student data and populate the form for editing
+            $.ajax({
+                url: `/api/get_student/${selectedStudentId}`,
+                type: 'GET',
+                success: function(student) {
+                    $('#studentId').val(student.studentId);
+                    $('#firstName').val(student.firstName);
+                    $('#lastName').val(student.lastName);
+                    $('#dob').val(student.dob);
+                    $('#level').val(student.level);
+                    $('#operation').val('add').change();
+                },
+                error: function(error) {
+                    alert('Error retrieving student data: ' + error.responseText);
+                }
+            });
+        }
+    
+        function terminateSelectedUser() {
+            const selectedUserId = $('input[name="selectedUser"]:checked').val();
+            if (!selectedUserId) {
+                alert('Please select a user to terminate.');
+                return;
+            }
+    
+            if (confirm('Are you sure you want to terminate this user?')) {
+                $.ajax({
+                    url: '/user_api/terminate_user',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userId: selectedUserId }),
+                    success: function(response) {
+                        alert(response.message);
+                        fetchUsers(); // Refresh the users list
+                    },
+                    error: function(error) {
+                        alert('Error terminating user: ' + error.responseText);
+                    }
+                });
+            }
+        }
+    
+        function fetchStudentIEPs() {
+            const selectedStudentId = $('input[name="selectedStudent"]:checked').val();
+            if (!selectedStudentId) {
+                alert('Please select a student to view IEPs.');
+                return;
+            }
+
+            $.ajax({
+                url: '/api/student_ieps',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ studentId: selectedStudentId }),
+                success: function(ieps) {
+                    // Process and display IEPs
+                    console.log(ieps);
+                    // You can add here the logic to display the IEPs, e.g., in a table or as a chart
+                },
+                error: function(error) {
+                    alert('Error fetching IEPs: ' + error.responseText);
+                }
+            });
+        }
+
+    
+        // Additional JavaScript functions as needed
+    </script>
+    
+</body>
+</html>

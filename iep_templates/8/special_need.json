@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age8_SpecialNeed": [
+    {
+      "question": "How often does the student respond appropriately to social cues?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student frequently responds appropriately to social cues."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to understand and produce complex sentences?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and produce complex sentences suitable for their age."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student exhibit behavioral or anger issues that are noticeably disruptive?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if disruptive behavior and anger issues are minimal or well-managed."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student stay focused on a task for an extended period (15-20 minutes)?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can stay focused for 15-20 minutes on a task."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to interact and collaborate with peers during group activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can interact and collaborate effectively in group activities."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

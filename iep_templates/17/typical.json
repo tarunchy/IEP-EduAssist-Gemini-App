@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age17_Typical": [
+      {
+        "question": "What are the student's career interests?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student can identify at least one career interest."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student manage time?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if student demonstrates effective time management skills."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student have post-secondary education plans?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student has a plan for post-secondary education."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "What is the student's proficiency in key subjects?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if student scores above average in key subjects."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student engage in extracurricular activities?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student is involved in at least one extracurricular activity."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

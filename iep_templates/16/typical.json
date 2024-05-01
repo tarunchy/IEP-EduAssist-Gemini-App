@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age16_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student manage time and assignments?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if student demonstrates consistent time management."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student considering post-secondary education?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if the student has a post-secondary plan in place."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "What career interests does the student have?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if the student identifies at least one career interest."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How does the student perform in social and emotional aspects?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if parent reports that the student is socially and emotionally stable."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

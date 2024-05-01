@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age9_SpecialNeed": [
+    {
+      "question": "How often does the student follow multi-step instructions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can consistently follow multi-step instructions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student participate in group activities without disruptive behaviors?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can participate without requiring extra intervention for behavior."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to maintain eye contact and interact appropriately in social settings?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can maintain eye contact and has appropriate social interactions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student manage anger or frustration?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student has coping mechanisms that are effective in managing anger or frustration."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student complete tasks that require fine motor skills, like writing or using scissors?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if there's improvement in fine motor skills appropriate for age 9."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age7_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student respond well to visual or auditory cues?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if teacher notices improved focus."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "What are the student's social skills?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if parent reports improvement in social interactions."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student able to focus on tasks for a reasonable amount of time?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if the student can focus for at least 20 minutes without getting distracted."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How does the student perform in reading and writing?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if the student reaches the expected literacy level for their age."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

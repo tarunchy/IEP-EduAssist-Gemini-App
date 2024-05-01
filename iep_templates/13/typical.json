@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age13_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How does the student respond to group work?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if teacher notices improved collaboration skills."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student completing homework assignments on time?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if homework is regularly submitted before due dates."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How does the student manage time and prioritize tasks?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if student shows improved time management."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student adapt to new learning methods or technologies?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student demonstrates adaptability."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

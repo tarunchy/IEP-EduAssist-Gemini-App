@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age6_SpecialNeed": [
+    {
+      "question": "How frequently does the student exhibit behavioral issues, such as anger?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if behavioral issues occur less frequently over a given time period."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to form and maintain friendships?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can form and maintain at least one friendship."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student understand and respond to WH questions (Who, What, Where, When, Why)?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can correctly respond to WH questions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student exhibit hyperactivity that disrupts learning?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if hyperactivity is managed well enough to not disrupt the learning environment."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How is the student's fine motor skill development?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if there is observed improvement in fine motor skills."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

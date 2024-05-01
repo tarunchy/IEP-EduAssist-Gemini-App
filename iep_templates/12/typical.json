@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age12_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student show leadership skills?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if teacher observes leadership qualities during group activities."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student manage time?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if the student completes assignments on time consistently."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student effectively communicate ideas?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student can clearly articulate thoughts during class discussions."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student open to learning from mistakes?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student shows improvement after receiving constructive feedback."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

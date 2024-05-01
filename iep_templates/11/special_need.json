@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age11_SpecialNeed": [
+    {
+      "question": "How well does the student cope with academic challenges compared to peers?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can keep up with at least 50% of the academic activities in comparison to peers."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student display any repetitive or compulsive behaviors?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if repetitive or compulsive behaviors do not interfere with learning or social interactions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to engage in group activities and team projects?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can participate and contribute in group activities and team projects."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student display any signs of aggression or severe behavioral issues?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if incidents of aggression or severe behavioral issues are minimal or non-existent."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student follow multi-step directions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can accurately follow multi-step directions."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

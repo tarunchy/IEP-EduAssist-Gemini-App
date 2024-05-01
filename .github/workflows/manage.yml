@@ -1,0 +1,31 @@
+name: Manage
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: choice
+        description: 'View Logs'
+        options: 
+          - Logs
+
+jobs:
+  deploy:
+    runs-on: [self-hosted,Linux,X64,gemini_iep]
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/dlyog/gemini_iep/
+    steps:
+    - name: Check App Directory
+      run: |
+        ls -ltr
+
+    - name: Check If App Running
+      run: |
+        ps -ef | grep python
+
+    - name: Check If App Running
+      run: |
+        tail -n 100 output.log 
+        
+      

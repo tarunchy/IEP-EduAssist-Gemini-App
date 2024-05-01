@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age11_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student respond well to visual or auditory cues?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if teacher notices improved focus."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How does the student handle peer interactions?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if peer interactions are generally positive."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student keeping up with homework and class assignments?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if homework is consistently completed on time."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Does the student participate in class discussions?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if student actively participates at least once per class."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

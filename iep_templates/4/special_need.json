@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age4_SpecialNeed": [
+    {
+      "question": "How frequently does the student exhibit behavioral issues?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student has fewer behavioral episodes compared to the baseline."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to stand in line for a brief period?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can stand in line for a brief period without issues."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student cope with sensory overload or triggers?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student shows improvement in coping mechanisms for sensory overload."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student engage in any social activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student shows increased willingness to engage in social activities."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How would you rate the student's fine motor skills?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if there's improvement in fine motor skills."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

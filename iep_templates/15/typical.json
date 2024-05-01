@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age15_Typical": [
+      {
+        "question": "What are the student's academic strengths?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if both parent and teacher identify consistent strengths."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student keeping up with homework and classwork?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if student completes 90% of assignments on time."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student interact with peers?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if no issues are reported over a grading period."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "What are the student's post-high school plans?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student has a preliminary plan for after high school."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student involved in extracurricular activities?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if student participates in at least one extracurricular activity."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

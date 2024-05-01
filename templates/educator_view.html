@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educator Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.x/dist/tailwind.min.css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</head>
+<body>
+    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold">Educator Dashboard</h1>
+        <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+            Logout
+        </button>
+    </header>
+    
+    <div class="flex flex-wrap justify-around p-5">
+        <div class="card max-w-sm w-full bg-white rounded-lg border border-gray-200 shadow-md m-4 hover:scale-105 transition-transform duration-300" onclick="window.location.href='/assessment'">
+            <img class="rounded-t-lg p-4 mx-auto" src="/static/images/start_iep.png" alt="Start IEP">
+            <div class="p-5">
+                <h3 class="text-lg font-semibold tracking-tight text-gray-900 text-center">Assessment, Plan, and Service Recommendation</h3>
+                <p class="font-normal text-gray-700 text-center">Gather participant feedback and create student-specific assessment plans with AI.</p>
+            </div>
+        </div>
+        <div class="card max-w-sm w-full bg-white rounded-lg border border-gray-200 shadow-md m-4 hover:scale-105 transition-transform duration-300" onclick="window.location.href='/iep_template'">
+            <img class="rounded-t-lg p-4 mx-auto" src="/static/images/iep_template.png" alt="Edit IEP Template">
+            <div class="p-5">
+                <h3 class="text-lg font-semibold tracking-tight text-gray-900 text-center">Customize IEP Questions</h3>
+                <p class="font-normal text-gray-700 text-center">Edit and personalize questions for individualized education plans.</p>
+            </div>
+        </div>
+        <div class="card max-w-sm w-full bg-white rounded-lg border border-gray-200 shadow-md m-4 hover:scale-105 transition-transform duration-300" onclick="window.location.href='/ieps_view'">
+            <img class="rounded-t-lg p-4 mx-auto" src="/static/images/iep_view.png" alt="View IEPs">
+            <div class="p-5">
+                <h3 class="text-lg font-semibold tracking-tight text-gray-900 text-center">IEP Insights & History</h3>
+                <p class="font-normal text-gray-700 text-center">Access historical IEPs and derive insights with AI.</p>
+            </div>
+        </div>
+
+       
+        
+    </div>
+</body>
+</html>

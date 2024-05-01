@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age16_SpecialNeed": [
+    {
+      "question": "How well does the student cope with academic challenges?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can handle academic tasks with minimal assistance."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student manage anger or behavioral issues?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can calm down without external help within a reasonable time frame."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to engage in complex conversations?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can engage in complex conversations, both in understanding and speaking."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student actively participate in group activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can participate in group activities without isolating themselves or requiring 1-on-1 attention."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How independent is the student in following complex instructions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can follow complex directions without requiring constant supervision."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

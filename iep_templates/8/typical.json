@@ -1,0 +1,50 @@
+{
+    "IEP_Template_Age8_Typical": [
+      {
+        "question": "What is the student's preferred learning style?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if parent agrees with the assessment."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student work in group settings?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if the student demonstrates collaborative skills."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "What is the student's proficiency in basic arithmetic?",
+        "answer": "",
+        "benchmark": {
+          "status": "Below goal",
+          "qualificationText": "Goal is met if the student shows improvement in arithmetic tests."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "How well does the student read and comprehend text?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if reading comprehension scores improve."
+        },
+        "ParentAnswer": "TBD"
+      },
+      {
+        "question": "Is the student able to focus on tasks for a reasonable amount of time?",
+        "answer": "",
+        "benchmark": {
+          "status": "Meets goal",
+          "qualificationText": "Goal is met if the student can focus for at least 20 minutes without getting distracted."
+        },
+        "ParentAnswer": "TBD"
+      }
+    ]
+  }
+  

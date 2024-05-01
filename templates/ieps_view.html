@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEPs View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+
+    
+
+ 
+
+    <style>
+
+
+
+        /* Additional styles for iepSummary */
+        #iepSummary, #iepDetails {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom styles for the select dropdown */
+        select.custom-select {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #4A5568;
+            background-color: #fff;
+            border: 2px solid #E2E8F0;
+            border-radius: 0.25rem;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        select.custom-select:hover {
+            border-color: #A0AEC0;
+        }
+
+        select.custom-select:focus {
+            outline: none;
+            border-color: #3182CE;
+            box-shadow: 0 0 0 1px #3182CE;
+        }
+
+        .ieps-view-container, .modal {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            width: 60%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        #progressBar {
+            width: 100%;
+            background-color: #ddd;
+        }
+
+        #progressBarStatus {
+            height: 30px;
+            background-color: #4CAF50;
+            width: 0%;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+
+    </style>
+
+
+    <script>
+
+        
+
+        var globalIeps = [];
+
+        function openStudentSearchPopup() {
+            $('#studentSearchPopup').show();
+            fetchStudentsForPopup();
+        }
+
+        function closeStudentSearchPopup() {
+            $('#studentSearchPopup').hide();
+        }
+
+        function fetchStudentsForPopup() {
+            $.ajax({
+                url: '/api/get_students',
+                type: 'GET',
+                success: function(students) {
+                    populatePopupStudentTable(students);
+                },
+                error: function(error) {
+                    alert('Error fetching students: ' + error.responseText);
+                }
+            });
+        }
+
+        function populatePopupStudentTable(students) {
+            const tableBody = $('#popupStudentsTable tbody');
+            tableBody.empty();
+            students.forEach(student => {
+                tableBody.append(`
+                    <tr onclick="selectStudent('${student.studentId}')">
+                        <td>${student.studentId}</td>
+                        <td>${student.firstName}</td>
+                        <td>${student.lastName}</td>
+                    </tr>
+                `);
+            });
+        }
+
+        function selectStudent(studentId) {
+            $('#studentIdSearch').val(studentId);
+            viewStudentIEPs(studentId);
+            closeStudentSearchPopup();
+        }
+
+        function viewStudentIEPs(studentId) {
+    $.ajax({
+        url: '/api/student_ieps',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ studentId: studentId }),
+        success: function(ieps) {
+            globalIeps = ieps;
+            populateIEPsTable();
+        },
+        error: function(error) {
+            alert('Error fetching IEPs: ' + error.responseText);
+        }
+    });
+}
+
+function populateIEPsTable() {
+        const tableBody = $('#iepsTable tbody');
+        tableBody.empty(); // Clear existing rows
+
+        document.getElementById('iepSummary').style.display = 'none';
+
+        globalIeps.forEach((iep, index) => {
+            tableBody.append(`
+                <tr>
+                    <td>${iep.iepDate}</td>
+                    <td>${iep.assessmentScore}</td>
+                    <td>${iep.assessedLevel}</td>
+                    <td><a href="#" onclick="displayIEPDetails(${index}); return false;">View Details</a></td>
+                </tr>
+            `);
+        });
+    }
+
+
+function displayIEPDetails(index) {
+    var iepDetails = globalIeps[index];
+        if (!iepDetails) {
+            alert('IEP details not found.');
+            return;
+        }
+    document.getElementById('iepSummary').style.display = 'none';
+    var detailsDiv = document.getElementById('iepDetails');
+    document.getElementById('iepDetails').style.display = 'block';
+    var htmlContent = '<h2>IEP Details</h2>';
+    htmlContent += '<table border="1" style="width: 100%; border-collapse: collapse;">';
+    htmlContent += '<thead><tr><th>Question</th><th>Participant\'s Response</th><th>IEP Assessment</th></tr></thead>';
+    htmlContent += '<tbody>';
+    iepDetails.questions.forEach(question => {
+        htmlContent += '<tr>';
+        htmlContent += '<td>' + question.question + '</td>';
+        htmlContent += '<td>' + question.parentAnswer + '</td>';
+        htmlContent += '<td>' + question.iepAssessment.replace(/(?:\\r\\n|\\r|\\n)/g, '<br>') + '</td>';
+        htmlContent += '</tr>';
+    });
+    htmlContent += '</tbody></table>';
+    htmlContent += '<p><strong>Assessed Level:</strong> ' + iepDetails.assessedLevel + '</p>';
+    htmlContent += '<p><strong>Assessment Score:</strong> ' + iepDetails.assessmentScore + '</p>';
+    htmlContent += '<p><strong>IEP Date:</strong> ' + iepDetails.iepDate + '</p>';
+    detailsDiv.innerHTML = htmlContent;
+}
+
+function summarizeIeps() {
+    if (globalIeps.length === 0) {
+        alert('No IEP found for summary.');
+        return;
+    }
+
+    var llm_provider = $('input[name="llm_provider"]').val();
+
+    var focus_area = $('#focus_area').val();
+
+    // Hide the IEP details div
+    document.getElementById('iepDetails').style.display = 'none';
+
+    var dataToSend = {
+        ieps: globalIeps,
+        llm_provider: llm_provider,
+        focus_area: focus_area
+    };
+
+    // Prepare the data to send to the server
+    var jsonDataToSend = JSON.stringify(dataToSend);
+
+    document.getElementById('iepSummary').style.display = 'block';
+    document.getElementById('iepSummary').innerHTML = "Generating Key Points...";
+   
+
+    // AJAX call to the server
+    $.ajax({
+        url: '/summarize_iep_assessment', // Your route
+        type: 'POST',
+        contentType: 'application/json',
+        data: jsonDataToSend,
+        success: function(summary) {
+            
+            // Display the summary
+            document.getElementById('iepSummary').innerHTML = summary.response;
+            document.getElementById('iepSummary').style.display = 'block';
+        },
+        error: function(error) {
+            alert('Error summarizing IEPs: ' + error.responseText);
+        }
+    });
+}
+
+
+    </script>
+</head>
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script>
+    
+    $(document).ready(function() {
+
+
+        // Initialize Semantic UI dropdown with default value
+        $('#llm_provider_dropdown').dropdown('set selected', 'LLAMA2');
+
+        // Set the hidden input value to the default value
+        $('input[name="llm_provider"]').val('LLAMA2');
+
+        // Initialize Semantic UI dropdown
+        $('#llm_provider_dropdown').dropdown({
+            onChange: function(value, text, $selectedItem) {
+                // Update the hidden input with the selected value
+                $('input[name="llm_provider"]').val(value);
+            }
+        });
+
+    });
+    
+    </script>
+
+    <header class="flex justify-between items-center py-5 bg-gray-200 text-gray-800 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold">IEP Insights & History</h1>
+    
+        <div class="flex">
+            <button onclick="educatorView()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
+                Dashboard
+            </button>
+    
+            <button onclick="logoutUser()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                Logout
+            </button>
+        </div>
+    </header>
+    
+
+    <div class="flex flex-wrap justify-around p-5">
+       
+        
+        <div class="student-search-container">
+            <label for="studentIdSearch" class="font-medium text-gray-700">
+                <i class="fas fa-user-graduate mr-2"></i>Student ID:
+            </label>
+            <input type="text" id="studentIdSearch" name="studentIdSearch" readonly class="border border-gray-300 rounded px-3 py-2">
+            <!-- Search Button -->
+            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="searchStudent" onclick="openStudentSearchPopup()">
+                <i class="fas fa-search"></i>
+            </button>
+            <input type="text" id="focus_area" placeholder="Type Focus Area" class="border border-gray-300 rounded px-3 py-2">
+            <!-- Key Points Button -->
+        <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="summarizeIepsButton" onclick="summarizeIeps()">
+            <i class="fas fa-file-alt"></i> Key Points
+        </button>
+
+            <div class="ui form mt-4">
+                <label for="llm_provider" class="block text-gray-700 text-sm font-bold mb-2">
+                    <i class="fas fa-server"></i> LLM Provider:
+                </label>
+                <div class="ui selection dropdown" id="llm_provider_dropdown">
+                    <input type="hidden" name="llm_provider">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Provider</div>
+                    <div class="menu">
+                        <div class="item" data-value="LLAMA2">Meta LLAMA2</div>
+                        <div class="item" data-value="PALM2">Google PALM2</div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+    
+        </div>
+
+        <!-- Table for IEPs -->
+        <table id="iepsTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Level</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- IEPs data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    
+
+    <!-- Student Search Popup -->
+    <div id="studentSearchPopup" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentSearchPopup()">&times;</span>
+            <h3>Select a Student</h3>
+            <table id="popupStudentsTable">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Students data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="iepDetails" style="display: none;" class="max-w-4xl mx-auto my-6 p-6 bg-white rounded shadow-lg" style="display: none;">
+        <!-- IEP details will be displayed here -->
+    </div>
+
+    <div id="iepSummary" style="display: none;" class="max-w-4xl mx-auto my-6 p-6 bg-white rounded shadow-lg" style="display: none;">
+        
+    </div>
+</body>
+</html>

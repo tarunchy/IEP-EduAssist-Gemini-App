@@ -1,0 +1,54 @@
+<VirtualHost _default_:9443>
+
+ProxyRequests     Off
+ProxyPreserveHost On
+AllowEncodedSlashes NoDecode
+
+<Proxy http://dlyog02:8891/*>
+  Order deny,allow
+  Allow from all
+
+</Proxy>
+# Add these lines for WebSocket support
+ProxyPass         /api/kernels/  ws://dlyog02:8891/api/kernels/ nocanon
+ProxyPassReverse  /api/kernels/  ws://dlyog02:8891/api/kernels/
+
+ProxyPass         /  http://dlyog02:8891/ nocanon
+ProxyPassReverse  /  http://dlyog02:8891/
+
+ServerName iep.dlyog.com:443
+
+TransferLog logs/ssl_access_log
+LogLevel warn
+
+SSLEngine on
+SSLProxyEngine on
+SSLProxyVerify none
+SSLProxyCheckPeerCN off
+SSLProxyCheckPeerName off
+SSLProtocol all -SSLv3
+
+SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
+
+<Files ~ "\.(cgi|shtml|phtml|php3?)$">
+    SSLOptions +StdEnvVars
+</Files>
+<Directory "/var/www/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+
+BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+
+CustomLog logs/ssl_request_log "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+ServerAlias iep.dlyog.com
+Include /etc/letsencrypt/options-ssl-apache.conf
+
+# Even if you adding a new site keep it like this with valid cert available in a location.
+# Then modify domain registry and use command certbot --apach  to get latest letme encrypt cert
+SSLCertificateFile /etc/letsencrypt/live/img.dlyog.com/cert.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/img.dlyog.com/privkey.pem
+SSLCertificateChainFile /etc/letsencrypt/live/img.dlyog.com/chain.pem
+</VirtualHost>
+
+

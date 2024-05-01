@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age7_SpecialNeed": [
+    {
+      "question": "How frequently does the student participate in group activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student willingly participates in group activities more than 70% of the time."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to express emotions and handle conflicts?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can express emotions and resolve conflicts appropriately."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Can the student read and understand age-appropriate texts?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can read and comprehend age-appropriate texts."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How well does the student handle transitions between activities?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can transition between activities without significant disruption."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to complete tasks with multiple steps?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can complete tasks that have multiple steps."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

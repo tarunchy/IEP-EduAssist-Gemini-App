@@ -1,0 +1,49 @@
+{
+  "IEP_Template_Age13_SpecialNeed": [
+    {
+      "question": "How well does the student manage anger and behavior issues?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can manage anger and behavior issues more effectively than before."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to understand and construct complex sentences?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and construct complex sentences, suitable for their age."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Does the student require constant 1-on-1 attention in school?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can participate in group activities with minimal 1-on-1 attention."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "Is the student able to follow multi-step directions?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can understand and follow multi-step directions."
+      },
+      "ParentAnswer": "TBD"
+    },
+    {
+      "question": "How does the student perform in social interactions compared to peers?",
+      "answer": "",
+      "benchmark": {
+        "status": "TBD",
+        "qualificationText": "Goal is met if the student can interact socially at a level appropriate for their age."
+      },
+      "ParentAnswer": "TBD"
+    }
+  ]
+}

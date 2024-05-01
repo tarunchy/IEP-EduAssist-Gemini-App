@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart IEP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/knowledgebase-stylesheet.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ url_for('static', filename='js/js_eip.js') }}"></script>
+
+    <script>
+
+        // Function to read the question
+        function speakQuestion(index) {
+        var fullText = document.getElementById('question' + index).nextElementSibling.innerText;
+        var questionText = fullText.replace("🔊", "").trim();  // Removing the speaker icon
+        var msg = new SpeechSynthesisUtterance();
+        msg.text = questionText;
+        window.speechSynthesis.speak(msg);
+        }
+
+        async function makeApiCall(index, question, parentAnswer, age, student_type) {
+            return $.ajax({
+                url: '/get_iep_assessment',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    question: question,
+                    parentAnswer: parentAnswer,
+                    age: age,
+                    student_type: student_type,
+                }),
+            }).then(function(data) {
+                $('#iepAssessment' + index).val(data.response);
+                const scorePattern = /Score= (\d\.\d)/;  // Regex to find "Score= X.X"
+                const match = data.response.match(scorePattern);
+                if (match) {
+                    return parseFloat(match[1]);  // Return the extracted score as a float
+                } else {
+                    return null;
+                }
+            }).catch(function(error) {
+                alert('Error generating IEP Assessment.');
+            });
+        }
+
+        $(document).ready(function() {
+    $('#loadQuestions').click(function() {
+        var age = $('#age').val();
+        var student_type = $('#student_type').val();
+		if((!age && typeof(age)=='object')||(!student_type && typeof(student_type)=='object')){
+			alert("Please select Age and Student Type for IEP");
+			exit;
+		}
+        $.ajax({
+            url: '/get_iep_template',
+            type: 'GET',
+            data: {age: age, student_type: student_type},
+            success: function(data) {
+                var questionsHtml = '';
+                // Take the array directly from the object
+                var questionsArray = Object.values(data)[0]; // take the first (and possibly only) value
+                if (questionsArray) {
+                    questionsArray.forEach(function(question, index) {
+                    questionsHtml += '<div class="question">' +
+                                '<input type="radio" name="questions" id="question' + index + '" class="question-checkbox">' +
+                                '<label for="question' + index + '">' + (index + 1) + '. ' + question.question +
+                                ' <span class="speak-icon" onclick="speakQuestion(' + index + ')">🔊</span>' +  // Adding Speak icon
+                                '</label>' +
+                                '<textarea id="parentAnswer' + index + '" rows="2" placeholder="Parent answer will appear here"></textarea>' +
+                                '<textarea id="iepAssessment' + index + '" rows="2" placeholder="IEP Assessment will appear here"></textarea>' +
+                                '</div>';
+                });
+                $('#questions').html(questionsHtml);
+                $('#hiddenIepData').val(JSON.stringify(data));
+				document.getElementById("assessButton").style.display = "block";
+                } else {
+                    alert('No questions found for this age and student type');
+                }
+            },
+            error: function(error) {
+                alert('Error loading questions');
+            }
+        });
+    });
+
+    $('#simulateParent').click(function() {
+
+        // Show the loader
+		document.getElementById("overlay").style.display = "block";
+        $('#loader').css('display', 'block');
+
+        var age = $('#age').val();
+        var student_type = $('#student_type').val();
+        var iepTemplateStr = $('#hiddenIepData').val();  // Read data from hidden field
+
+        $.ajax({
+            url: '/get_ai_answer',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                age: age,
+                student_type: student_type,
+                data: iepTemplateStr
+            }),
+            success: function(data) {
+                try {
+                    // Remove the unwanted prefix before attempting to parse JSON
+                    var rawResponse = data.response.trim();
+                    var jsonStr = rawResponse.substring(rawResponse.indexOf(":") + 1).trim();
+                    
+                    // Parse the JSON string
+                    var responseData = JSON.parse(jsonStr);
+                    
+                    // Populate the textareas
+                    responseData.forEach(function(item, index) {
+                        $('#parentAnswer' + index).val(item.ParentAnswer);
+                    });
+                    // Hide the loader
+                    $('#loader').css('display', 'none');
+					document.getElementById("overlay").style.display = "none";
+                } catch (e) {
+                    // Hide the loader
+                    $('#loader').css('display', 'none');
+                    console.error("An error occurred while processing the response:", e);
+                    alert('Error processing the response.');
+                }
+            },
+            error: function(error) {
+                alert('Error generating simulated parent input.');
+            }
+
+        });
+    });
+
+
+    $('#getAssessment').click(function() {
+
+        selectedQuestionIndex = null;
+                $('.question-checkbox').each(function(index) {
+                    if ($(this).prop('checked')) {
+                        selectedQuestionIndex = index;
+						$('#loader').css('display', 'block');
+                    }
+                });
+		        // Show the loader
+        if (selectedQuestionIndex === null) {
+				alert("Please select atleast one question to assess.");
+            return;
+		}
+        // Get the question and parent answer for the selected question
+        var selectedQuestion = $('label[for="question' + selectedQuestionIndex + '"]').text();
+        var selectedParentAnswer = $('#parentAnswer' + selectedQuestionIndex).val();
+        console.log('Selected Question: ', selectedQuestion);
+        console.log('Selected Parent Answer: ', selectedParentAnswer);
+        console.log('Selected Question Index: ', selectedQuestionIndex);
+
+        var age = $('#age').val();
+        var student_type = $('#student_type').val();
+
+        if (selectedQuestion && selectedParentAnswer) {
+            // Make the API call to get the IEP Assessment recommendation
+            $.ajax({
+                url: '/get_iep_assessment',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    question: selectedQuestion,
+                    parentAnswer: selectedParentAnswer,
+                    age: age,
+                    student_type: student_type,
+
+                }),
+                success: function(data) {
+                    $('#iepAssessment' + selectedQuestionIndex).val(data.response);
+                    // Hide the loader
+                    $('#loader').css('display', 'none');
+                },
+                error: function(error) {
+                    alert('Error generating IEP Assessment.');
+                    // Hide the loader
+                    $('#loader').css('display', 'none');
+                }
+            });
+        } else {
+            alert('Please select a question and ensure that a parent answer exists.');
+        }
+        });
+
+
+        $('#assessAll').click(async function() {
+            let questionsCount = $('.question').length;
+            let age = $('#age').val();
+            let student_type = $('#student_type').val();
+            let progress = 0;
+            let totalScore = 0;
+            let validScores = 0;
+
+            // Show the modal
+            $('#progressModal').show();
+
+            // Validate if all questions have been answered by the parent
+            for(let i = 0; i < questionsCount; i++) {
+                let parentAnswer = $('#parentAnswer' + i).val();
+                if (!parentAnswer) {
+                    alert(`Question ${i + 1} must be answered by parent before starting.`);
+                    $('#progressModal').hide();
+                    return;
+                }
+            }
+
+            // Loop through all questions and make API calls sequentially
+            for(let i = 0; i < questionsCount; i++) {
+                let question = $('label[for="question' + i + '"]').text();
+                let parentAnswer = $('#parentAnswer' + i).val();
+
+                // Wait for each API call to complete before moving on to the next
+                const score = await makeApiCall(i, question, parentAnswer, age, student_type);
+                
+                if (score !== null) {
+                    totalScore += score;
+                    validScores++;
+                }
+
+                progress += 100 / questionsCount;
+                $('#progressBar').val(progress);  // Update progress bar value here
+            }
+
+            // Calculate the average score
+            if (validScores > 0) {
+                const averageScore = totalScore / validScores;
+
+                // Determine assessed Level
+                let assessedLevel = '';
+                if (averageScore >= 0.8) {
+                    assessedLevel = 'Level 1';
+                } else if (averageScore >= 0.6) {
+                    assessedLevel = 'Level 2';
+                } else if (averageScore >= 0.3) {
+                    assessedLevel = 'Level 3';
+                } else {
+                    assessedLevel = 'Level 4';
+                }
+
+                // Add the assessed level to your HTML
+                $('#assessedLevelDiv').text(`Assessed Level: ${assessedLevel} (Score: ${averageScore.toFixed(2)})`);
+            }
+
+            // Hide the modal
+            $('#progressModal').hide();
+        });
+
+        $('#generate').click(function() {
+            let allQuestionsAnswered = true;
+            let allIepAssessmentsComplete = true;
+
+            // Check if all questions have answers and if all IEP assessments are complete
+            $('.question').each(function(index) {
+                const parentAnswer = $('#parentAnswer' + index).val();
+                const iepAssessment = $('#iepAssessment' + index).val();
+
+                if (!parentAnswer) {
+                    allQuestionsAnswered = false;
+                }
+
+                if (!iepAssessment) {
+                    allIepAssessmentsComplete = false;
+                }
+            });
+
+            if (!allQuestionsAnswered) {
+                alert('All questions must be answered by the parent before generating the IEP report.');
+                return;
+            }
+
+            if (!allIepAssessmentsComplete) {
+                alert('IEP assessments for all questions must be complete before generating the IEP report.');
+                return;
+            }
+
+            let reportContent = '<table>';
+
+            reportContent += '<thead><tr><th class="twenty">Question</th><th class="twenty">Parents Response</th><th>IEP Assessment</th></tr></thead>';
+            reportContent += '<tbody>';
+
+            $('.question').each(function(index) {
+                const questionText = $('label[for="question' + index + '"]').text();
+                const parentAnswer = $('#parentAnswer' + index).val();
+                const iepAssessment = $('#iepAssessment' + index).val();
+
+                reportContent += '<tr>';
+                reportContent += '<td>' + questionText + '</td>';
+                reportContent += '<td>' + parentAnswer + '</td>';
+                reportContent += '<td>' + iepAssessment.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
+                reportContent += '</tr>';
+            });
+
+            reportContent += '</tbody></table>';
+
+			const emailButton = '<button id="emailButton" onclick="mailto:example@website.com">Email Report</button>';
+            const printButton = '<button id="printButton" onclick="window.print()">Print Report</button>';
+
+            const reportWindow = window.open('', '_blank');
+            reportWindow.document.open();
+            reportWindow.document.write('<html><head><title>IEP Generated by SmartIEP.AI</title>');
+            reportWindow.document.write('<link rel="stylesheet" type="text/css" href="/static/css/knowledgebase-stylesheet.css">');
+            reportWindow.document.write('</head><body>');
+            reportWindow.document.write('<h1>IEP Generated by SmartIEP.AI</h1>');
+			reportWindow.document.write(emailButton); // Add the Print button to the report
+            reportWindow.document.write(printButton); // Add the Print button to the report
+            reportWindow.document.write(reportContent);
+            reportWindow.document.write('</body></html>');
+            reportWindow.document.close();
+        });
+
+});
+
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        var recognition; // SpeechRecognition object
+        var isRecording = false;
+        var selectedQuestionIndex = null;
+        var shouldStop = false; // You can actually remove this line if you don't use it elsewhere
+
+        try {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            // Allow for continuous recognition
+            recognition.continuous = true;
+        }
+        catch(e) {
+            alert('SpeechRecognition not supported by this browser.');
+            return;
+        }
+
+        recognition.onstart = function() {
+            isRecording = true;
+            document.getElementById('mic-icon').classList.add("recording-icon"); // Add recording animation
+        };
+
+        recognition.onresult = function(event) {
+            if (selectedQuestionIndex !== null) {
+                var transcriptTextarea = $('#parentAnswer' + selectedQuestionIndex);
+                var newTranscript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    newTranscript += event.results[i][0].transcript;
+                }
+                transcriptTextarea.val(transcriptTextarea.val() + ' ' + newTranscript);
+                //$('#question' + selectedQuestionIndex).parent().css('background-color', 'green'); // Change color to green after completion
+            }
+        };
+
+        recognition.onend = function() {
+            isRecording = false;
+            document.getElementById('mic-icon').classList.remove("recording-icon"); // Remove recording animation
+            if (!shouldStop) {
+                recognition.start();
+            }
+            
+            // Directly restart the recognition without checking any flag
+        };
+
+        $('#start').click(function() {
+            if (isRecording) {
+                return;
+            }
+
+            selectedQuestionIndex = null;
+            $('.question-checkbox').each(function(index) {
+                if ($(this).prop('checked')) {
+                    selectedQuestionIndex = index;
+                }
+            });
+
+            if (selectedQuestionIndex === null) {
+                alert('Please select a question first.');
+                return;
+            }
+
+            recognition.start();
+        });
+
+        $('#stop').click(function() {
+            shouldStop = true; 
+            recognition.stop();
+        });
+
+
+});
+
+
+</script>
+</head>
+
+<body>
+	<div id="overlay"></div>
+    <h1 class="headerColor">IEP CoPilot Insight: Voice-Activated Planning</h1>
+
+    <div class="checkbox-label">
+        <label for="consent">Parent's Consent:</label>
+        <input type="checkbox" id="consent" onclick="enableReq();">
+    </div>
+	<div id="recordButton" class="recording-disable">
+		<div class="checkbox-label">
+			<button class="small-button" id="getAssessment">Assess</button>
+			<button class="small-button" id="start">Start Recording</button>
+			<button class="small-button" id="stop">Stop Recording</button>
+			<span id="status"><i id="mic-icon" class="fas fa-microphone"></i></span>
+		</div>
+	</div>
+	<div id="assessButton" style="display:none;">
+			<button class="small-button" id="simulateParent">Simulate Parent Input</button>
+			<button class="small-button" id="assessAll">Assess All</button>
+			<div id="progressModal" class="modal">
+				<div class="modal-content">
+				  <h3>IEP Assessment in Progress</h3>
+				 <h4>Disclaimer</h4>
+While the AI Assessment feature of this app serves as a Co-Pilot to assist you in evaluating student performance and generating reports, it is essential to understand that the ultimate responsibility for reviewing and sharing these assessments with parents rests with you, the teacher.
+
+The AI Assessment tool is designed to support your professional judgment, not replace it. Always ensure to review the AI-generated data and insights carefully before sending them to parents.
+
+By using the AI Assessment feature, you acknowledge and agree to these terms.
+<progress id="progressBar" value="0" max="100"></progress>
+				</div>
+			</div>
+			  
+
+			<input type="hidden" id="hiddenIepData">
+			<div id="loader" class="loader"></div>
+		</div>
+	<table class="tabAlig">
+		  <tr>
+			<td><label for="age">Select Age:</label></td>
+			<td><label for="student_level">Select Student Current Level:</label></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td><select id="age" style="width: 250px;">
+					<option value="" disabled selected>Select Age</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+				</select>
+				<input type="hidden" id="student_type" name="student_type" value="special_need">
+			</td>
+			<td><select id="student_level" style="width: 250px;">
+				<option value="first_time">First Time Assessment</option>
+				<option value="level1">Level 1</option>
+				<option value="level2">Level 2</option>
+				<option value="level3">Level 3</option>
+				<option value="level4">Level 4</option>
+			</select></td>
+			<td>
+			<div id="button-container">
+				<button class="small-button" id="loadQuestions">Load Questions</button>
+				<a href="iep_template" target="_blank">
+					<button class="small-button" id="editQuestions">Edit Question</button>
+				</a>
+			</div></td>
+		  </tr>
+	</table>
+ 
+    <div id="assessedLevelDiv"></div>
+
+
+    <!-- ... existing code ... -->
+
+    
+
+<!-- ... existing code ... -->
+
+   
+
+    <div id="questions"></div>
+
+    <div>
+        <button class="small-button" id="generate">Generate IEP</button>
+        
+    </div>
+
+</body>
+    
+
+
+</html>
