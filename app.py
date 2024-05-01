@@ -268,7 +268,7 @@ def get_iep_assessment():
             return jsonify({"error": "Missing required fields"}), 400
 
         question = content['question']
-        llm_provider = content['llm_provider']
+    
         parentAnswer = content['parentAnswer']
         age = content['age']
         student_type = content['student_type']
@@ -277,7 +277,7 @@ def get_iep_assessment():
         #logging.debug('111111')
 
         # Create the updated prompt string for IEP Assessment with only the score embedded in recommendation
-        prompt_str = f"""[INST]<<SYS>>
+        prompt_str = f"""
             You are an expert educator specialized in creating Individualized Education Plans for {age}-year-old students of type {student_type}. Provide a recommendation for an IEP Assessment based on the question and the IEP Participant's (Teacher, Speech Therapist,Occupation Therapist, Parent ) answer. Your recommendation should be a single, unbroken paragraph that strictly concludes with a score derived from the ParentAnswer. The score should be a single decimal number. No additional text should follow the score. Use the scoring criteria for internal reference only.
 
             - Level 1 - 80% respond by name, normal eye contact, they can sit on a chair for more than 5 mins, they can follow simple directions, get social skills and mix with others. Got good fine motor skills. Level kids can answer WH Question.
@@ -294,12 +294,12 @@ def get_iep_assessment():
             - Level 4: Score should be below 0.3
 
             Your recommendation must strictly end with Score= X.X, where X.X is a single decimal number. No text should follow the score.
-            <</SYS>>
+           
 
-            <<Question>> Does the student have issues with social interactions?
-            <<ParentAnswer>> My child struggles with making friends and often prefers to play alone. They don't seem to understand social cues well.
+            Question: Does the student have issues with social interactions?
+            ParentAnswer: My child struggles with making friends and often prefers to play alone. They don't seem to understand social cues well.
 '
-            <<Recommendation>>Recommendation: Based on the parent's observations it's evident that the student faces challenges in social interactions and lacks a good understanding of social cues. To close this gap and aim for progressing the student to the next level, the following actions are recommended for implementation in the coming school days: 
+            Recommendation: Based on the parent's observations it's evident that the student faces challenges in social interactions and lacks a good understanding of social cues. To close this gap and aim for progressing the student to the next level, the following actions are recommended for implementation in the coming school days: 
 
             1. Collaborate with a speech and language therapist to focus on social communication skills.
             2. Conduct behavioral observations in multiple social settings to pinpoint specific areas of difficulty.
@@ -309,10 +309,10 @@ def get_iep_assessment():
             
             Score= 0.5
 
-            <<Question>> {question}
-            <<IEPParticipantAnswer>> {parentAnswer}
+            Question: {question}
+            IEPParticipantAnswer: {parentAnswer}
 
-             [/INST]"""
+            """
         
         response = {
 
