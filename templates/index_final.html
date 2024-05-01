@@ -402,7 +402,6 @@ h1 {
                             '</label>' +
                             '<textarea id="parentAnswer' + index + '" rows="2" class="border border-gray-300" placeholder="Assessment will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
                             '<textarea id="iepAssessment' + index + '" rows="2" class="border border-gray-300" placeholder="IEP Goal will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
-                            '<textarea id="iepService' + index + '" rows="2" class="border border-gray-300" placeholder="Recommended Service based on IEP Goal will appear here" onclick="showPopup(\'' + escapedQuestion + '\', this)" ></textarea>' +
                             '</div>';
                     });
                 
@@ -671,13 +670,13 @@ h1 {
                 const questionText = $('label[for="question' + index + '"]').text();
                 const parentAnswer = $('#parentAnswer' + index).val();
                 const iepAssessment = $('#iepAssessment' + index).val();
-                const iepService = $('#iepService' + index).val();
+                //const iepService = $('#iepService' + index).val();
 
                 reportContent += '<tr>';
                 reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + questionText + '</td>';
                 reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + parentAnswer.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
                 reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + iepAssessment.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
-                reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + iepService.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
+                //reportContent += '<td style="padding: 10px; border: 1px solid #ccc;">' + iepService.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</td>';
                 reportContent += '</tr>';
             });
 
@@ -981,9 +980,6 @@ function closeStudentSearchPopup() {
             </button>
             <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="assessAll">
                 <i class="fas fa-check-circle"></i> Create Goal
-            </button>
-            <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="serviceAll">
-                <i class="fas fa-check-circle"></i> Recommend Service
             </button>
 
             <button class="icon small-button bg-gray-500 hover:bg-gray-600 text-white" id="generate">
