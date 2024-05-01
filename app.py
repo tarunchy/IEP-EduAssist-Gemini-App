@@ -309,8 +309,8 @@ def get_iep_assessment():
             
             Score= 0.5
 
-            Question: {question}
-            IEPParticipantAnswer: {parentAnswer}
+            IEP Participant: {question}
+            IEP Participant's Feedback: {parentAnswer}
 
             """
         
