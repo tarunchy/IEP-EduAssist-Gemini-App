@@ -56,8 +56,21 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>Parent  Dashboard</h1>
+    <input type="checkbox" id="active" />
+    <label for="active" class="toggle-btn"><i class="fas fa-bars"></i></label>
+    <!---------- NAVIGATION BAR ---------->
+    <nav>
+        <ul>
+            <li><a href="/home" class="active">Home</a></li>
+            <li><a href="/ieps_view_parent" class="active">IEP Insights</a></li>
+
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
+            
+        </ul>
+    </nav>
+
+    <header class="flex justify-between items-center py-5 shadow px-4">
+        <h1 class="text-xl md:text-3xl font-semibold"></h1>
     </header>
     <div class="dashboard-container">
         <div class="card" onclick="window.location.href='/ieps_view_parent'">
@@ -69,5 +82,8 @@
             <h3>Logout</h3>
         </div>
     </div>
+    <script>
+        new Darkmode().showWidget();
+    </script>
 </body>
 </html>

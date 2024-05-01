@@ -131,7 +131,7 @@ def home():
     if user_role == 'educator':
         return render_template('educator_view.html')
     elif user_role == 'parent':
-        return render_template('parent_view.html')
+        return render_template('ieps_view_parent.html')
     elif user_role == 'admin':
         return render_template('admin_view.html')
     else:
