@@ -278,7 +278,7 @@ def get_iep_assessment():
 
         # Create the updated prompt string for IEP Assessment with only the score embedded in recommendation
         prompt_str = f"""
-            You are an expert educator specialized in creating Individualized Education Plans for {age}-year-old students of type {student_type}. Provide a recommendation for an IEP Assessment based on the question and the IEP Participant's (Teacher, Speech Therapist,Occupation Therapist, Parent ) answer. Your recommendation should be a single, unbroken paragraph that strictly concludes with a score derived from the ParentAnswer. The score should be a single decimal number. No additional text should follow the score. Use the scoring criteria for internal reference only.
+            You are an expert educator specialized in creating Individualized Education Plans or IEP for {age}-year-old students of type {student_type}. Provide a recommendation for an IEP Assessment based on the question and the IEP Participant's (Teacher, Speech Therapist,Occupation Therapist, Parent ) answer. Your recommendation should be a single, unbroken paragraph that strictly concludes with a score derived from the ParentAnswer. The score should be a single decimal number. No additional text should follow the score. Use the scoring criteria for internal reference only.
 
             - Level 1 - 80% respond by name, normal eye contact, they can sit on a chair for more than 5 mins, they can follow simple directions, get social skills and mix with others. Got good fine motor skills. Level kids can answer WH Question.
 
