@@ -106,6 +106,10 @@
         <div class="login-container">
             <form id="login-form">
                 <div class="form-group mb-4">
+                    <label for="username" class="text-gray-800 text-sm font-medium">AI4IEP-EduAssist</label>
+                </div>
+
+                <div class="form-group mb-4">
                     <label for="username" class="text-gray-800 text-sm font-medium">Username:</label>
                     <input type="text" id="username" name="username" class="border border-gray-300 text-gray-700 rounded px-3 py-2 w-full focus:border-blue-500 focus:outline-none" required>
                 </div>
@@ -118,6 +122,12 @@
                 <button type="submit" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-200">
                     Login
                 </button>
+
+                <footer class="text-center p-4 mt-auto text-white">
+                    AI4IEPEduAssist&trade; Powered by GenAI
+                </footer>
+               
+
                 
             </form>
         </div>
@@ -132,11 +142,13 @@
       <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
       <footer class="footer p-4 bg-opacity-50 bg-black text-center text-sm text-white">
-        © 2024 Tarun Chawdhury. It's a Generative AI Experiment for Google Gemini Hackathon 2024 and may include inaccurate results.
+        © 2024 Tarun Chawdhury. It is a Generative AI Experiment for Google Gemini Hackathon 2024 and may include inaccurate results.
         <br>
         <a href="/terms" class="hover:text-gray-300">Terms and Conditions</a> |
         <a href="https://www.dlyog.com/privacy" class="hover:text-gray-300">Privacy Policy</a>
     </footer>
+
+
     
 </body>
 </html>
