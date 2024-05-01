@@ -65,7 +65,6 @@ if datasource == 'DB':
     es = Elasticsearch([es_url])
 
 
-
 @app.route('/educator_view')
 @validate_educator_token
 def educator_view():
@@ -123,27 +122,20 @@ def login():
     # Logic for rendering the login page
     return render_template('login.html')
 
-@app.route('/login_post', methods=['GET'])
+@app.route('/home', methods=['GET'])
 @validate_session_token
-def login_post():
+def home():
     user_role = request.cookies.get('user_role')
 
     # Redirect based on role
     if user_role == 'educator':
-        return redirect(url_for('educator_view'))
+        return render_template('educator_view.html')
     elif user_role == 'parent':
-        return redirect(url_for('parent_view'))
+        return render_template('parent_view.html')
     elif user_role == 'admin':
-        return redirect(url_for('admin_view'))
+        return render_template('admin_view.html')
     else:
         return render_template('login.html')
-
-
-
-@app.route('/home')
-@validate_session_token
-def home():
-    return render_template('home.html')
 
 
 
